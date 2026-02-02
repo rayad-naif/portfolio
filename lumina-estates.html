@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina Estates | Luxury Living</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Manrope:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary: #c5a47e; /* Gold/Beige */
+            --primary-dark: #a6855e;
+            --dark: #121212;
+            --dark-light: #1e1e1e;
+            --light: #f4f4f4;
+            --white: #ffffff;
+            --gray: #888888;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--white);
+            font-weight: 400;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* --- UTILITY ANIMATION CLASSES --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 1s ease;
+        }
+
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .stagger-delay:nth-child(1) { transition-delay: 0.1s; }
+        .stagger-delay:nth-child(2) { transition-delay: 0.2s; }
+        .stagger-delay:nth-child(3) { transition-delay: 0.3s; }
+        .stagger-delay:nth-child(4) { transition-delay: 0.4s; }
+
+        /* --- 1. NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: 0.4s;
+            background: transparent;
+        }
+
+        nav.scrolled {
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 5%;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-btn {
+            padding: 10px 25px;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        .cta-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* --- 2. HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1600596542815-6ad4c7213aa5?q=80&w=2675&auto=format&fit=crop') no-repeat center/cover;
+            z-index: -1;
+            filter: brightness(0.6);
+            transform: scale(1.1);
+            animation: zoomOut 20s infinite alternate;
+        }
+
+        @keyframes zoomOut {
+            from { transform: scale(1.1); }
+            to { transform: scale(1.0); }
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s forwards 0.5s;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: #ccc;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s forwards 0.8s;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            animation: fadeUp 1s forwards 1.5s;
+        }
+
+        .mouse {
+            width: 20px;
+            height: 35px;
+            border: 1px solid var(--white);
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .wheel {
+            width: 4px;
+            height: 4px;
+            background: var(--white);
+            border-radius: 50%;
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: scrollWheel 2s infinite;
+        }
+
+        @keyframes scrollWheel {
+            0% { top: 6px; opacity: 1; }
+            100% { top: 20px; opacity: 0; }
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- 3. INTRO SECTION --- */
+        .intro {
+            padding: 100px 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            background: var(--dark);
+        }
+
+        .intro-text h4 {
+            color: var(--primary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .intro-text h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+        }
+
+        .intro-img {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+        }
+
+        .intro-img img {
+            height: 100%;
+            transition: transform 1.5s ease;
+        }
+
+        .intro-img:hover img {
+            transform: scale(1.05);
+        }
+
+        /* --- 4. COUNTER SECTION --- */
+        .stats {
+            padding: 60px 5%;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-box {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- 5. FEATURED CAROUSEL (Grid for Stability) --- */
+        .featured {
+            padding: 100px 5%;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+        }
+
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .property-card {
+            background: var(--dark-light);
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            group: 'card';
+        }
+
+        .card-img {
+            height: 350px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-img img {
+            transition: var(--transition);
+        }
+
+        .property-card:hover .card-img img {
+            transform: scale(1.1);
+        }
+
+        .card-details {
+            padding: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .price {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .card-details h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .amenity-row {
+            display: flex;
+            gap: 20px;
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+        }
+
+        /* --- 6. SERVICES --- */
+        .services {
+            padding: 100px 5%;
+            background: #151515;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: rgba(255,255,255,0.1); /* Creates borders */
+        }
+
+        .service-box {
+            background: var(--dark);
+            padding: 60px 40px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-box::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: var(--primary);
+            opacity: 0.1;
+            transition: 0.4s ease;
+        }
+
+        .service-box:hover::before {
+            height: 100%;
+        }
+
+        .service-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+
+        .service-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .service-box p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* --- 7. VIDEO PARALLAX --- */
+        .video-section {
+            height: 70vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2670&auto=format&fit=crop') no-repeat center/cover;
+            background-attachment: fixed; /* Simple CSS parallax */
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .play-btn {
+            width: 80px;
+            height: 80px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .play-btn::after {
+            content: '';
+            border-left: 15px solid var(--dark);
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            margin-left: 5px;
+        }
+
+        /* --- 8. AMENITIES --- */
+        .amenities {
+            padding: 100px 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .amenities-content {
+            padding-right: 50px;
+        }
+
+        .amenities-list {
+            margin-top: 40px;
+        }
+
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .check-icon {
+            color: var(--primary);
+            margin-right: 20px;
+            font-size: 1.2rem;
+        }
+
+        .amenities-image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .amenities-image-grid img {
+            height: 250px;
+            border-radius: 4px;
+        }
+        
+        .amenities-image-grid img:nth-child(2) {
+            margin-top: 40px;
+        }
+
+        /* --- 9. TEAM --- */
+        .team {
+            padding: 100px 5%;
+            text-align: center;
+        }
+
+        .team-grid {
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .member-card {
+            background: transparent;
+        }
+
+        .member-img {
+            height: 350px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .member-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(197, 164, 126, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .member-img:hover .member-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .social-link {
+            color: var(--white);
+            margin: 0 10px;
+            font-size: 1.2rem;
+        }
+
+        /* --- 10. TESTIMONIALS --- */
+        .testimonials {
+            padding: 100px 5%;
+            background: var(--dark-light);
+            text-align: center;
+        }
+
+        .testimonial-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            height: 300px; /* Fixed height for simplicity */
+        }
+
+        .testimonial-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .testimonial-slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            position: relative;
+        }
+
+        .quote {
+            font-size: 1.8rem;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+
+        .author {
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: #444;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background: var(--primary);
+        }
+
+        /* --- 11. CONTACT --- */
+        .contact {
+            padding: 100px 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            color: var(--white);
+            font-family: 'Manrope', sans-serif;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 15px 40px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            align-self: flex-start;
+            transition: var(--transition);
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* --- 12. FOOTER --- */
+        footer {
+            padding: 80px 5% 40px;
+            background: #000;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            margin-bottom: 25px;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 15px;
+            color: var(--gray);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .footer-col ul li:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            color: #444;
+            font-size: 0.8rem;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 3.5rem; }
+            .intro, .contact, .amenities { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: 1fr 1fr; }
+            .amenities-content { padding-right: 0; margin-bottom: 40px; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-toggle { display: block; color: var(--white); }
+            .hero h1 { font-size: 2.5rem; }
+            .stats { flex-direction: column; gap: 40px; }
+            .services-grid { grid-template-columns: 1fr; }
+            .contact { gap: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. NAVIGATION -->
+    <nav id="navbar">
+        <div class="logo">Lumina.</div>
+        <div class="nav-links">
+            <a href="#properties">Properties</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#team">Team</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="menu-toggle">☰</div>
+        <a href="#contact" class="cta-btn mobile-hide">Inquire Now</a>
+    </nav>
+
+    <!-- 2. HERO -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>Architecture for the <br> Modern Soul.</h1>
+            <p>Exclusive penthouses and luxury estates in the heart of the city.</p>
+            <a href="#properties" class="cta-btn" style="background:var(--white); color:var(--dark); border-color:var(--white);">Explore Listings</a>
+        </div>
+        <div class="scroll-down">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <span style="font-size: 0.7rem; margin-top: 10px; letter-spacing: 2px;">SCROLL</span>
+        </div>
+    </section>
+
+    <!-- 3. INTRO / ABOUT -->
+    <section class="intro" id="about">
+        <div class="intro-img reveal-left">
+            <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2671&auto=format&fit=crop" alt="Luxury Interior">
+        </div>
+        <div class="intro-text reveal">
+            <h4>Who We Are</h4>
+            <h2>We don't just find homes.<br>We curate lifestyles.</h2>
+            <p style="color: var(--gray); margin-bottom: 25px;">Lumina Estates was founded on the belief that luxury is an experience, not a price point. With over 20 years of market dominance, we provide access to the world's most exclusive properties.</p>
+            <a href="#" style="border-bottom: 1px solid var(--primary); padding-bottom: 5px;">Read our story</a>
+        </div>
+    </section>
+
+    <!-- 4. COUNTER STATS -->
+    <section class="stats" id="counter-section">
+        <div class="stat-box reveal stagger-delay">
+            <span class="stat-number" data-target="25">0</span>
+            <span class="stat-label">Years of Experience</span>
+        </div>
+        <div class="stat-box reveal stagger-delay">
+            <span class="stat-number" data-target="850">0</span>
+            <span class="stat-label">Properties Sold</span>
+        </div>
+        <div class="stat-box reveal stagger-delay">
+            <span class="stat-number" data-target="120">0</span>
+            <span class="stat-label">Awards Won</span>
+        </div>
+        <div class="stat-box reveal stagger-delay">
+            <span class="stat-number" data-target="98">0</span>
+            <span class="stat-label">% Client Satisfaction</span>
+        </div>
+    </section>
+
+    <!-- 5. FEATURED PROPERTIES -->
+    <section class="featured" id="properties">
+        <div class="section-header reveal">
+            <div class="section-title">
+                <h4 style="color:var(--primary); font-size:0.9rem; margin-bottom:10px;">Exclusive</h4>
+                <h2>Featured Listings</h2>
+            </div>
+            <a href="#" class="cta-btn">View All</a>
+        </div>
+
+        <div class="property-grid">
+            <!-- Card 1 -->
+            <div class="property-card reveal stagger-delay">
+                <div class="card-img">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2653&auto=format&fit=crop" alt="Villa">
+                </div>
+                <div class="card-details">
+                    <span class="price">$5,400,000</span>
+                    <h3>The Onyx Villa</h3>
+                    <p style="color:var(--gray);">Beverly Hills, CA</p>
+                    <div class="amenity-row">
+                        <span>5 Beds</span>
+                        <span>6 Baths</span>
+                        <span>4,500 sqft</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="property-card reveal stagger-delay">
+                <div class="card-img">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2670&auto=format&fit=crop" alt="Penthouse">
+                </div>
+                <div class="card-details">
+                    <span class="price">$8,250,000</span>
+                    <h3>Skyline Penthouse</h3>
+                    <p style="color:var(--gray);">Manhattan, NY</p>
+                    <div class="amenity-row">
+                        <span>3 Beds</span>
+                        <span>3.5 Baths</span>
+                        <span>2,800 sqft</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="property-card reveal stagger-delay">
+                <div class="card-img">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2670&auto=format&fit=crop" alt="Mansion">
+                </div>
+                <div class="card-details">
+                    <span class="price">$12,900,000</span>
+                    <h3>Azure Coast Estate</h3>
+                    <p style="color:var(--gray);">Miami, FL</p>
+                    <div class="amenity-row">
+                        <span>7 Beds</span>
+                        <span>9 Baths</span>
+                        <span>8,200 sqft</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. SERVICES -->
+    <section class="services" id="services">
+        <div class="section-title reveal" style="text-align: center; margin-bottom: 60px;">
+            <h2>Our Services</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-box reveal stagger-delay">
+                <div class="service-icon">✦</div>
+                <h3>Property Management</h3>
+                <p>We handle the maintenance, tenants, and finances so you don't have to.</p>
+            </div>
+            <div class="service-box reveal stagger-delay">
+                <div class="service-icon">✦</div>
+                <h3>Financial Consulting</h3>
+                <p>Expert advice on mortgage rates, investment returns, and tax implications.</p>
+            </div>
+            <div class="service-box reveal stagger-delay">
+                <div class="service-icon">✦</div>
+                <h3>Interior Design</h3>
+                <p>World-class staging and renovation services to maximize property value.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. VIDEO TOUR PARALLAX -->
+    <section class="video-section">
+        <div class="video-overlay"></div>
+        <div class="play-btn"></div>
+    </section>
+
+    <!-- 8. AMENITIES -->
+    <section class="amenities">
+        <div class="amenities-content reveal-left">
+            <h4 style="color:var(--primary);">Lifestyle</h4>
+            <h2 style="margin-bottom: 20px;">Designed for<br>Excellence</h2>
+            <p style="color: var(--gray);">Our properties feature state-of-the-art amenities designed to provide comfort, security, and leisure.</p>
+            
+            <div class="amenities-list">
+                <div class="amenity-item">
+                    <span class="check-icon">✓</span>
+                    <span>Smart Home Integration</span>
+                </div>
+                <div class="amenity-item">
+                    <span class="check-icon">✓</span>
+                    <span>Private Infinity Pools</span>
+                </div>
+                <div class="amenity-item">
+                    <span class="check-icon">✓</span>
+                    <span>24/7 Concierge Service</span>
+                </div>
+                <div class="amenity-item">
+                    <span class="check-icon">✓</span>
+                    <span>World-Class Fitness Centers</span>
+                </div>
+            </div>
+        </div>
+        <div class="amenities-image-grid reveal">
+            <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=2670&auto=format&fit=crop" alt="Pool">
+            <img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?q=80&w=2676&auto=format&fit=crop" alt="Gym">
+        </div>
+    </section>
+
+    <!-- 9. TEAM -->
+    <section class="team" id="team">
+        <h2 class="reveal">Meet Our Agents</h2>
+        <div class="team-grid">
+            <div class="member-card reveal stagger-delay">
+                <div class="member-img">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=2574&auto=format&fit=crop" alt="Agent">
+                    <div class="member-overlay">
+                        <span class="social-link">LN</span>
+                        <span class="social-link">IG</span>
+                    </div>
+                </div>
+                <h3>James Sterling</h3>
+                <p style="color:var(--primary);">Senior Broker</p>
+            </div>
+            <div class="member-card reveal stagger-delay">
+                <div class="member-img">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2576&auto=format&fit=crop" alt="Agent">
+                    <div class="member-overlay">
+                        <span class="social-link">LN</span>
+                        <span class="social-link">IG</span>
+                    </div>
+                </div>
+                <h3>Sarah Jenkins</h3>
+                <p style="color:var(--primary);">Luxury Consultant</p>
+            </div>
+            <div class="member-card reveal stagger-delay">
+                <div class="member-img">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=2574&auto=format&fit=crop" alt="Agent">
+                    <div class="member-overlay">
+                        <span class="social-link">LN</span>
+                        <span class="social-link">IG</span>
+                    </div>
+                </div>
+                <h3>Robert Chen</h3>
+                <p style="color:var(--primary);">Sales Director</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. TESTIMONIALS -->
+    <section class="testimonials">
+        <div class="testimonial-container reveal">
+            <div class="testimonial-slide active">
+                <p class="quote">"Buying with Lumina was the seamless experience I didn't know I needed. They found off-market gems I couldn't find anywhere else."</p>
+                <p class="author">- Jonathan Wick, Investor</p>
+            </div>
+            <div class="testimonial-slide">
+                <p class="quote">"The attention to detail from the initial viewing to the final signature was impeccable. Truly a first-class service."</p>
+                <p class="author">- Elena Gilbert, Homeowner</p>
+            </div>
+            <div class="testimonial-slide">
+                <p class="quote">"They sold my property in 3 days for 15% over asking price. Their marketing team is absolute magic."</p>
+                <p class="author">- Marcus Aurelius, Seller</p>
+            </div>
+        </div>
+        <div class="dots">
+            <div class="dot active" onclick="showTestimonial(0)"></div>
+            <div class="dot" onclick="showTestimonial(1)"></div>
+            <div class="dot" onclick="showTestimonial(2)"></div>
+        </div>
+    </section>
+
+    <!-- 11. CONTACT -->
+    <section class="contact" id="contact">
+        <div class="contact-text reveal-left">
+            <h4 style="color:var(--primary);">Get in Touch</h4>
+            <h2>Let's Find Your <br> Dream Home</h2>
+            <p style="color: var(--gray); margin-top: 20px;">Whether you're selling, buying, or just browsing, our team is here to guide you through the process.</p>
+            
+            <div style="margin-top: 40px;">
+                <p><strong>Headquarters:</strong><br>101 Luxury Lane, Beverly Hills, CA 90210</p>
+                <p style="margin-top: 20px;"><strong>Phone:</strong><br>+1 (888) 555-0199</p>
+            </div>
+        </div>
+        <form class="contact-form reveal">
+            <div class="form-group">
+                <input type="text" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" placeholder="Email Address" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Phone Number">
+            </div>
+            <div class="form-group">
+                <textarea rows="4" placeholder="Message"></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+    </section>
+
+    <!-- 12. FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 20px;">Lumina.</div>
+                <p style="color: #666; font-size: 0.9rem;">Redefining luxury real estate since 2005.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li>About Us</li>
+                    <li>Careers</li>
+                    <li>Press</li>
+                    <li>Blog</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Properties</h4>
+                <ul>
+                    <li>Buy</li>
+                    <li>Sell</li>
+                    <li>Rent</li>
+                    <li>New Developments</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li>Contact</li>
+                    <li>Privacy Policy</li>
+                    <li>Terms of Service</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 Lumina Estates. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // --- 1. NAVBAR SCROLL EFFECT ---
+        const nav = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // --- 2. SCROLL REVEAL ANIMATION (IntersectionObserver) ---
+        const revealElements = document.querySelectorAll('.reveal, .reveal-left');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // --- 3. NUMBER COUNTER ANIMATION ---
+        const statsSection = document.getElementById('counter-section');
+        const statNumbers = document.querySelectorAll('.stat-number');
+        let started = false;
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !started) {
+                statNumbers.forEach(num => {
+                    startCount(num);
+                });
+                started = true;
+            }
+        });
+
+        if(statsSection) statsObserver.observe(statsSection);
+
+        function startCount(el) {
+            const target = +el.getAttribute('data-target');
+            const duration = 2000; // 2 seconds
+            const step = target / (duration / 16); // 60fps
+            
+            let current = 0;
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    el.textContent = target;
+                    clearInterval(timer);
+                    // Add + for satisfaction or % if it's the last one
+                    if(target === 98) el.textContent += "%";
+                    else el.textContent += "+";
+                } else {
+                    el.textContent = Math.ceil(current);
+                }
+            }, 16);
+        }
+
+        // --- 4. TESTIMONIAL SLIDER ---
+        let currentTestimonial = 0;
+        const slides = document.querySelectorAll('.testimonial-slide');
+        const dots = document.querySelectorAll('.dot');
+
+        function showTestimonial(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentTestimonial = index;
+        }
+
+        // Auto slide
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % slides.length;
+            showTestimonial(currentTestimonial);
+        }, 5000);
+
+        // --- 5. MOBILE MENU ---
+        // Simple toggle for demonstration
+        document.querySelector('.menu-toggle').addEventListener('click', () => {
+           alert("Mobile menu functionality would expand here. (Simplified for single-file demo)");
+        });
+
+        // --- 6. SMOOTH SCROLL FOR ANCHOR LINKS ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // --- 7. FORM HANDLER ---
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your inquiry. An agent will contact you shortly.');
+            e.target.reset();
+        });
+
+    </script>
+</body>
+</html>
