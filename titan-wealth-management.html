@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TITAN WEALTH | Institutional Private Equity</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@200;300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #061a14;
+            --surface: #0a251c;
+            --accent: #d4af37;
+            --text: #ffffff;
+            --text-dim: #a0b0ab;
+            --font-head: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', sans-serif;
+            --transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; line-height: 1.6; }
+        h1, h2, h3 { font-family: var(--font-head); font-weight: 300; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        img { width: 100%; display: block; object-fit: cover; }
+
+        section { padding: 120px 10%; border-bottom: 1px solid rgba(212, 175, 55, 0.1); position: relative; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: var(--transition); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* 1. TOP BAR */
+        .top-bar { padding: 10px 10%; background: #000; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; display: flex; justify-content: space-between; color: var(--accent); }
+
+        /* 2. NAVIGATION */
+        nav { position: sticky; top: 0; width: 100%; padding: 25px 10%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: rgba(6, 26, 20, 0.95); backdrop-filter: blur(10px); }
+        .logo { font-family: var(--font-head); font-size: 1.8rem; letter-spacing: 2px; }
+        .nav-links { display: flex; gap: 40px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-link:hover { color: var(--accent); }
+
+        /* 3. HERO */
+        .hero { height: 90vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .hero h1 { font-size: 6rem; line-height: 1; margin-bottom: 20px; }
+        .hero p { font-size: 1.2rem; color: var(--text-dim); max-width: 600px; margin: 0 auto 40px; }
+        .hero-stats { display: flex; justify-content: center; gap: 80px; margin-top: 60px; }
+
+        /* 4. PHILOSOPHY */
+        .philo { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+        .philo h2 { font-size: 4rem; line-height: 1.1; }
+
+        /* 5. STATS COUNTER */
+        .stat-val { font-family: var(--font-head); font-size: 4rem; color: var(--accent); }
+        .stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-dim); }
+
+        /* 6. SECTORS */
+        .sector-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px; }
+        .sector-card { background: var(--surface); padding: 50px; border: 1px solid rgba(212, 175, 55, 0.05); transition: 0.4s; }
+        .sector-card:hover { border-color: var(--accent); transform: translateY(-10px); }
+        .sector-icon { font-size: 2rem; color: var(--accent); margin-bottom: 20px; display: block; }
+
+        /* 7. GLOBAL FOOTPRINT (SVG Map Placeholder) */
+        .map-section { text-align: center; background: #04120e; }
+        .map-placeholder { height: 400px; width: 100%; background: radial-gradient(circle, #0a251c 0%, #061a14 100%); margin-top: 50px; border-radius: 8px; position: relative; display: flex; align-items: center; justify-content: center; color: var(--accent); font-style: italic; opacity: 0.5; }
+
+        /* 8. STRATEGY */
+        .strategy { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; }
+        .strategy-list li { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+        /* 9. LEADERSHIP */
+        .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .member img { height: 350px; filter: grayscale(1); transition: 0.5s; }
+        .member:hover img { filter: grayscale(0); }
+
+        /* 10. INSIGHTS */
+        .journal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+        .journal-item { border-left: 1px solid var(--accent); padding-left: 30px; }
+
+        /* 11. TRUST BADGES */
+        .trust { display: flex; justify-content: space-around; padding: 60px 10%; opacity: 0.4; filter: grayscale(1); }
+
+        /* 12. CONTACT & FOOTER */
+        .contact-box { background: var(--surface); padding: 80px; text-align: center; border: 1px solid var(--accent); }
+        .btn-gold { display: inline-block; padding: 18px 45px; background: var(--accent); color: #000; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; }
+        
+        footer { padding: 80px 10%; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; }
+
+        @media (max-width: 900px) {
+            .philo, .sector-grid, .team-grid, .journal-grid, .strategy { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 4rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <span>London Stock Exchange: +1.24%</span>
+        <span>S&P 500: +0.82%</span>
+        <span>Institutional Access Only</span>
+    </div>
+
+    <nav>
+        <div class="logo">TITAN WEALTH</div>
+        <div class="nav-links">
+            <a href="#" class="nav-link">Portfolio</a>
+            <a href="#" class="nav-link">Philosophy</a>
+            <a href="#" class="nav-link">Insights</a>
+            <a href="#" style="color: var(--accent)">Contact Partner</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="reveal">
+            <span class="stat-label">Excellence in Equity</span>
+            <h1>Preserving <i>Legacies</i>.</h1>
+            <p>A multi-generational approach to wealth management and institutional private equity.</p>
+            <div class="hero-stats">
+                <div><span class="stat-val" data-target="14.2">0</span><span class="stat-val">B</span><p class="stat-label">AUM (USD)</p></div>
+                <div><span class="stat-val" data-target="25">0</span><span class="stat-val">+</span><p class="stat-label">Years Active</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="philo">
+        <div class="reveal">
+            <h2>The Titan <br>Standard</h2>
+        </div>
+        <div class="reveal">
+            <p style="font-size: 1.5rem; font-family: var(--font-head); color: var(--accent); margin-bottom: 20px;">Precision. Discretion. Performance.</p>
+            <p>Titan Wealth Management was established on the principle that true value is built over decades, not quarters. We identify distressed and emerging assets across global markets to secure consistent alpha for our limited partners.</p>
+        </div>
+    </section>
+
+    <section>
+        <span class="stat-label">Investment Focus</span>
+        <div class="sector-grid">
+            <div class="sector-card reveal">
+                <span class="sector-icon">🏛️</span>
+                <h3>Real Estate</h3>
+                <p>Prime commercial developments in Tier 1 global cities.</p>
+            </div>
+            <div class="sector-card reveal" style="transition-delay: 0.1s">
+                <span class="sector-icon">🔬</span>
+                <h3>Bio-Tech</h3>
+                <p>Early stage ventures in life-extending medical technology.</p>
+            </div>
+            <div class="sector-card reveal" style="transition-delay: 0.2s">
+                <span class="sector-icon">🔋</span>
+                <h3>Clean Energy</h3>
+                <p>Large scale infrastructure for the post-carbon economy.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <div class="reveal">
+            <h2>Global Reach</h2>
+            <div class="map-placeholder">[ Interactive Global Map - Proprietary Network ]</div>
+            <p style="margin-top: 30px; font-size: 0.8rem; color: var(--text-dim);">Presence in: London, Geneva, Singapore, New York, Dubai.</p>
+        </div>
+    </section>
+
+    <section class="strategy">
+        <div class="reveal">
+            <h2>Our Alpha Strategy</h2>
+        </div>
+        <div class="reveal">
+            <ul class="strategy-list">
+                <li><h3>Risk Mitigation</h3><p>Proprietary algorithmic hedging against macro-economic volatility.</p></li>
+                <li><h3>Direct Ownership</h3><p>Active management and seat-at-the-table involvement in every venture.</p></li>
+                <li><h3>Liquidity Events</h3><p>Strategic exit planning optimized for multi-year tax efficiency.</p></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="team">
+        <div class="reveal" style="text-align: center; margin-bottom: 60px;">
+            <h2>Managing Partners</h2>
+        </div>
+        <div class="team-grid">
+            <div class="member reveal"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800" alt="Partner"><h3>Lord Alistair Vane</h3><p class="stat-label">Chairman</p></div>
+            <div class="member reveal"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800" alt="Partner"><h3>Dr. Helena Thorne</h3><p class="stat-label">CIO</p></div>
+            <div class="member reveal"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=800" alt="Partner"><h3>Marcus Sterling</h3><p class="stat-label">Head of Private Equity</p></div>
+            <div class="member reveal"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=800" alt="Partner"><h3>Sofia Moretti</h3><p class="stat-label">Compliance</p></div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="reveal" style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <p style="font-family: var(--font-head); font-size: 2.5rem; font-style: italic;">"Titan's ability to navigate high-volatility environments is unmatched. They are the silent architects of our family office's growth."</p>
+            <p class="stat-label" style="margin-top: 20px;">— Private Family Office, Zurich</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 style="margin-bottom: 50px;">Market Insights</h2>
+        <div class="journal-grid">
+            <div class="journal-item reveal"><h3>The 2024 Outlook on APAC Markets</h3><p>A deep dive into emerging tech sectors in Southeast Asia.</p></div>
+            <div class="journal-item reveal"><h3>Hedged Real Estate: A Defensive Play</h3><p>Why we are increasing allocation in logistics infrastructure.</p></div>
+        </div>
+    </section>
+
+    <div class="trust">
+        <span>FCA REGULATED</span>
+        <span>SEC COMPLIANT</span>
+        <span>ESG CERTIFIED</span>
+    </div>
+
+    <section>
+        <div class="contact-box reveal">
+            <h2>Begin the Conversation</h2>
+            <p style="margin: 20px 0 40px;">Prospective partners are invited to request a confidential brief.</p>
+            <a href="#" class="btn-gold">Request Inception Brief</a>
+        </div>
+    </section>
+
+    <footer>
+        <div>© 2024 TITAN WEALTH MANAGEMENT. ALL RIGHTS RESERVED.</div>
+        <div>LONDON / ZURICH / SINGAPORE</div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    const stat = entry.target.querySelector('.stat-val');
+                    if(stat && stat.dataset.target) startCount(stat);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        function startCount(el) {
+            const target = parseFloat(el.dataset.target);
+            let current = 0;
+            const step = target / 60;
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    el.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    el.textContent = target % 1 === 0 ? Math.floor(current) : current.toFixed(1);
+                }
+            }, 16);
+        }
+    </script>
+</body>
+</html>

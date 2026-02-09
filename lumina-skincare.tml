@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMINA SKINCARE | Conscious Beauty</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;600&family=Tenor+Sans&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fdfaf8;
+            --accent: #eecbc4;
+            --text: #3d3431;
+            --text-light: #8d7e79;
+            --white: #ffffff;
+            --font-head: 'Tenor Sans', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; }
+        h1, h2, h3 { font-family: var(--font-head); text-transform: uppercase; font-weight: 400; }
+        a { text-decoration: none; color: inherit; }
+        img { width: 100%; display: block; object-fit: cover; }
+
+        section { padding: 100px 10%; position: relative; }
+        .reveal { opacity: 0; transform: translateY(40px); transition: var(--transition); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .banner { background: var(--accent); padding: 8px; text-align: center; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* 1. NAV */
+        nav { padding: 30px 10%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: rgba(253, 250, 248, 0.8); backdrop-filter: blur(10px); z-index: 1000; }
+        .logo { font-size: 1.5rem; letter-spacing: 3px; }
+        .nav-links { display: flex; gap: 30px; font-size: 0.8rem; text-transform: uppercase; }
+
+        /* 2. HERO */
+        .hero { height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .hero h1 { font-size: 5rem; line-height: 1; margin-bottom: 20px; }
+        .hero-img-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.4; background: url('https://images.unsplash.com/photo-1556227702-d1e4e7b5c232?q=80&w=2670&auto=format&fit=crop') center/cover; }
+
+        /* 3. MISSION */
+        .mission { text-align: center; max-width: 800px; margin: 0 auto; }
+        .mission h2 { font-size: 3rem; margin-bottom: 30px; }
+
+        /* 4. PRODUCTS */
+        .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 50px; }
+        .product-card { background: var(--white); padding: 20px; text-align: center; border-radius: 4px; transition: 0.4s; }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.03); }
+        .product-img { height: 400px; background: #f2f2f2; margin-bottom: 20px; }
+
+        /* 5. INGREDIENTS */
+        .ingredients { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; background: #fff; }
+        .ing-label { background: var(--accent); display: inline-block; padding: 5px 15px; font-size: 0.7rem; border-radius: 50px; margin-bottom: 20px; }
+
+        /* 6. CLINICALS */
+        .clinicals { display: flex; justify-content: space-around; text-align: center; background: #f9f4f2; }
+        .clinical-val { font-size: 4rem; font-family: var(--font-head); color: var(--text-light); }
+
+        /* 7. LIFESTYLE */
+        .lifestyle-img { height: 600px; margin: 60px 0; }
+
+        /* 8. PRESS */
+        .press { display: flex; justify-content: space-around; opacity: 0.4; padding: 60px 10%; font-family: var(--font-head); font-size: 1.5rem; }
+
+        /* 9. JOURNAL */
+        .journal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+
+        /* 10. TESTIMONIALS */
+        .quote { font-size: 2rem; font-family: var(--font-head); text-align: center; }
+
+        /* 11. FAQ */
+        .faq { max-width: 800px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid #ddd; padding: 20px 0; cursor: pointer; }
+        .faq-ans { max-height: 0; overflow: hidden; transition: 0.4s; color: var(--text-light); }
+
+        /* 12. FOOTER */
+        footer { padding: 80px 10% 40px; border-top: 1px solid #eee; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; }
+        .social-feed { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 40px; }
+        .social-box { aspect-ratio: 1; background: #eee; }
+
+        @media (max-width: 900px) {
+            .product-grid, .ingredients, .journal-grid, footer { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">Complimentary shipping on orders over $75</div>
+    
+    <nav>
+        <div class="logo">LUMINA</div>
+        <div class="nav-links">
+            <a href="#">Shop</a>
+            <a href="#">The Science</a>
+            <a href="#">About</a>
+            <a href="#">Cart (0)</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-img-bg"></div>
+        <div class="reveal">
+            <h1>Gentle by <i>Nature</i>.<br>Proven by Science.</h1>
+            <p>Dermatologist formulated skincare for the modern conscious soul.</p>
+            <a href="#" style="border-bottom: 1px solid #000; padding-bottom: 5px; text-transform: uppercase; font-size: 0.8rem;">Shop Best Sellers</a>
+        </div>
+    </section>
+
+    <section class="mission">
+        <div class="reveal">
+            <h2>Skincare is Ritual.</h2>
+            <p style="color: var(--text-light); font-size: 1.2rem;">We believe in stripping away the excess. No fillers, no synthetic fragrances, no compromise. Only high-potency botanicals that respect your skin's barrier.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 style="text-align: center;">The Staples</h2>
+        <div class="product-grid">
+            <div class="product-card reveal">
+                <div class="product-img"><img src="https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?q=80&w=800" alt="Oil"></div>
+                <h3>Cloud Cleanser</h3>
+                <p style="color: var(--text-light)">$34.00</p>
+            </div>
+            <div class="product-card reveal" style="transition-delay: 0.1s">
+                <div class="product-img"><img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?q=80&w=800" alt="Serum"></div>
+                <h3>Dew Serum</h3>
+                <p style="color: var(--text-light)">$58.00</p>
+            </div>
+            <div class="product-card reveal" style="transition-delay: 0.2s">
+                <div class="product-img"><img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=800" alt="Cream"></div>
+                <h3>Barrier Balm</h3>
+                <p style="color: var(--text-light)">$42.00</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="ingredients">
+        <div class="reveal">
+            <img src="https://images.unsplash.com/photo-1556227702-d1e4e7b5c232?q=80&w=800" style="height: 500px; border-radius: 200px 200px 0 0;" alt="Botanical">
+        </div>
+        <div class="reveal">
+            <span class="ing-label">Featured Ingredient</span>
+            <h2>Bakuchiol Extract</h2>
+            <p>Nature’s answer to Retinol. Our sustainably harvested Bakuchiol provides all the transformative benefits of Vitamin A without the irritation, making it suitable for even the most sensitive complexions.</p>
+            <a href="#" style="color: var(--text-light); font-size: 0.8rem; text-decoration: underline;">Explore the Library</a>
+        </div>
+    </section>
+
+    <section class="clinicals">
+        <div class="reveal">
+            <div class="clinical-val">94%</div>
+            <p style="font-size: 0.7rem; text-transform: uppercase;">Reporting Improved Texture</p>
+        </div>
+        <div class="reveal" style="transition-delay: 0.1s">
+            <div class="clinical-val">100%</div>
+            <p style="font-size: 0.7rem; text-transform: uppercase;">Vegan & Cruelty Free</p>
+        </div>
+        <div class="reveal" style="transition-delay: 0.2s">
+            <div class="clinical-val">24h</div>
+            <p style="font-size: 0.7rem; text-transform: uppercase;">Locked-In Hydration</p>
+        </div>
+    </section>
+
+    <section class="lifestyle">
+        <div class="reveal">
+            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=2669" class="lifestyle-img" alt="Self Care">
+            <h2 style="text-align: center;">Slow Down.</h2>
+        </div>
+    </section>
+
+    <div class="press">
+        <span>VOGUE</span>
+        <span>ALLURE</span>
+        <span>GLOSSier</span>
+        <span>BAZAAR</span>
+    </div>
+
+    <section>
+        <div class="journal-grid">
+            <div class="reveal">
+                <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=800" style="height: 300px;" alt="Post">
+                <h3 style="margin-top: 20px;">The Evening Wind-Down Ritual</h3>
+            </div>
+            <div class="reveal">
+                <img src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?q=80&w=800" style="height: 300px;" alt="Post">
+                <h3 style="margin-top: 20px;">Why Barrier Health is Everything</h3>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="reveal">
+            <p class="quote">"The first time in years my skin has felt calm. Lumina is a revelation."</p>
+            <p style="font-size: 0.8rem; margin-top: 20px;">— ELIZA P., Verified Customer</p>
+        </div>
+    </section>
+
+    <section class="faq">
+        <h2 style="margin-bottom: 30px;">Questions?</h2>
+        <div class="faq-item" onclick="this.querySelector('.faq-ans').style.maxHeight = this.querySelector('.faq-ans').style.maxHeight === '100px' ? '0' : '100px'">
+            <p>Is Lumina suitable for pregnancy?</p>
+            <div class="faq-ans"><p>Yes, all Lumina products are formulated without Retinoids, Salicylic Acid, or endocrine disruptors, making them safe for expected mothers.</p></div>
+        </div>
+        <div class="faq-item" onclick="this.querySelector('.faq-ans').style.maxHeight = this.querySelector('.faq-ans').style.maxHeight === '100px' ? '0' : '100px'">
+            <p>How do I recycle my empty bottles?</p>
+            <div class="faq-ans"><p>Our glass bottles and aluminum caps are 100% recyclable. We also offer a refill program with a 15% discount.</p></div>
+        </div>
+    </section>
+
+    <section style="background: #fff; text-align: center;">
+        <h2>@LUMINA_SKIN</h2>
+        <div class="social-feed">
+            <div class="social-box"></div>
+            <div class="social-box"></div>
+            <div class="social-box"></div>
+            <div class="social-box"></div>
+        </div>
+    </section>
+
+    <footer>
+        <div>
+            <div class="logo" style="margin-bottom: 20px;">LUMINA</div>
+            <p style="font-size: 0.8rem; color: var(--text-light)">Clean ingredients. Conscious sourcing. Clinical results.</p>
+        </div>
+        <div>
+            <h4>Account</h4>
+            <ul style="font-size: 0.7rem; color: var(--text-light); margin-top: 20px;">
+                <li>Login</li>
+                <li>Orders</li>
+                <li>Rewards</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Help</h4>
+            <ul style="font-size: 0.7rem; color: var(--text-light); margin-top: 20px;">
+                <li>Shipping</li>
+                <li>Returns</li>
+                <li>Contact</li>
+            </ul>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
