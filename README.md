@@ -314,7 +314,7 @@
         </a>
 
         <!-- 11. STEPHEN ETZEL -->
-        <a href="stephen-etzel.html" class="project-card">
+        <a href="https://thestephenetzel.com/home" class="project-card">
             <div>
                 <span class="card-category">Real Estate Education</span>
                 <h2 class="card-title">Stephen Etzel</h2>
