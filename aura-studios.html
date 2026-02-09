@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Studios | Fine Art Photography</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-color: #0a0a0a;
+            --bg-secondary: #111111;
+            --text-color: #f0f0f0;
+            --accent-color: #d4af37; /* Gold */
+            --subtle-text: #888;
+            --font-display: 'Cinzel', serif;
+            --font-body: 'Lato', sans-serif;
+            --transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; /* Hide default cursor */
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        /* --- CUSTOM CURSOR --- */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--text-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+            mix-blend-mode: difference;
+        }
+
+        .cursor.hovered {
+            width: 50px;
+            height: 50px;
+            background-color: var(--text-color);
+            border: none;
+            opacity: 0.5;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3, h4 {
+            font-family: var(--font-display);
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.3;
+        }
+
+        p {
+            color: var(--subtle-text);
+            margin-bottom: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* --- UTILITIES --- */
+        section {
+            padding: 120px 5%;
+            position: relative;
+        }
+
+        .reveal-text {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+
+        .reveal-text.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-header h4 {
+            color: var(--accent-color);
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            border: 1px solid var(--text-color);
+            color: var(--text-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--text-color);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            width: 100%;
+        }
+
+        .btn:hover {
+            color: var(--bg-color);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: 0.3s;
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            letter-spacing: 4px;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-link {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* --- 1. HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            background: url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2670&auto=format&fit=crop') no-repeat center/cover;
+            filter: brightness(0.6) contrast(1.1);
+            z-index: -1;
+            will-change: transform;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            mix-blend-mode: overlay;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            line-height: 1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.7;
+        }
+
+        .line {
+            width: 1px;
+            height: 60px;
+            background: var(--text-color);
+            animation: scrollLine 2s infinite;
+        }
+
+        @keyframes scrollLine {
+            0% { transform: scaleY(0); transform-origin: top; }
+            50% { transform: scaleY(1); transform-origin: top; }
+            51% { transform: scaleY(1); transform-origin: bottom; }
+            100% { transform: scaleY(0); transform-origin: bottom; }
+        }
+
+        /* --- 2. AWARDS STRIP --- */
+        .awards {
+            padding: 40px 5%;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .awards span {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            opacity: 0.4;
+            letter-spacing: 2px;
+        }
+
+        /* --- 3. ABOUT SECTION --- */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+        }
+
+        .about-img-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-img-container img {
+            transition: transform 1.5s ease;
+        }
+
+        .about-img-container:hover img {
+            transform: scale(1.05);
+        }
+
+        /* --- 4. PROCESS --- */
+        .process {
+            background: var(--bg-secondary);
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .process-item {
+            padding: 30px;
+            border-left: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+        }
+
+        .process-item:hover {
+            border-left-color: var(--accent-color);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .process-num {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .process-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        /* --- 5. PORTFOLIO (Masonry) --- */
+        .filter-nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .filter-btn {
+            background: none;
+            border: none;
+            color: var(--subtle-text);
+            cursor: none; 
+            font-family: var(--font-body);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            color: var(--text-color);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            grid-auto-rows: 350px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            background: #111;
+            transition: all 0.6s ease;
+        }
+
+        .gallery-item.tall { grid-row: span 2; }
+        .gallery-item.wide { grid-column: span 2; }
+
+        .gallery-item img {
+            height: 100%;
+            width: 100%;
+            transition: transform 0.8s ease;
+            filter: grayscale(100%);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay span {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            transform: translateY(20px);
+            transition: 0.4s;
+        }
+
+        .gallery-item:hover .gallery-overlay span {
+            transform: translateY(0);
+        }
+
+        .gallery-item.hide {
+            display: none;
+        }
+
+        /* --- 6. SERVICES --- */
+        .services {
+            background: var(--bg-secondary);
+        }
+
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+        }
+
+        .service-card {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            transition: 0.3s;
+        }
+
+        .service-card:hover {
+            border-color: var(--accent-color);
+        }
+
+        .service-num {
+            font-size: 3rem;
+            color: rgba(255,255,255,0.1);
+            font-family: var(--font-display);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .service-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* --- 7. TEAM --- */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 60px;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .team-img {
+            height: 450px;
+            margin-bottom: 20px;
+            filter: grayscale(100%);
+            transition: 0.5s;
+        }
+
+        .team-member:hover .team-img {
+            filter: grayscale(0%);
+        }
+
+        .team-member h3 {
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+
+        .team-role {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* --- 8. TESTIMONIALS --- */
+        .testimonials {
+            text-align: center;
+            background: url('https://images.unsplash.com/photo-1542382156909-9ae37b3f56fd?q=80&w=2623&auto=format&fit=crop') center/cover fixed;
+            position: relative;
+        }
+
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+        }
+
+        .test-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .quote-icon {
+            font-size: 4rem;
+            color: var(--accent-color);
+            font-family: var(--font-display);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .test-text {
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 30px;
+            color: var(--text-color);
+        }
+
+        /* --- 9. PRICING --- */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .pricing-card {
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 40px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--accent-color);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-family: var(--font-display);
+            margin: 20px 0;
+            color: var(--accent-color);
+        }
+
+        .price span { font-size: 1rem; color: var(--subtle-text); }
+
+        .price-features li {
+            margin-bottom: 15px;
+            color: var(--subtle-text);
+        }
+
+        /* --- 10. FAQ --- */
+        .faq {
+            background: var(--bg-secondary);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .accordion-header {
+            padding: 20px 0;
+            cursor: none; 
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+
+        .accordion-header:hover {
+            color: var(--accent-color);
+        }
+
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            color: var(--subtle-text);
+        }
+
+        /* --- 11. JOURNAL --- */
+        .journal-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .journal-item {
+            cursor: none;
+        }
+
+        .journal-img {
+            height: 250px;
+            margin-bottom: 20px;
+            opacity: 0.8;
+            transition: 0.3s;
+        }
+
+        .journal-item:hover .journal-img {
+            opacity: 1;
+        }
+
+        .journal-date {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .journal-item h3 {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        /* --- 12. CONTACT & 13. FOOTER --- */
+        .contact {
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 4rem;
+            margin-bottom: 40px;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .input-group input, .input-group textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #333;
+            padding: 10px 0;
+            color: var(--text-color);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: var(--accent-color);
+        }
+
+        .input-group label {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            color: var(--subtle-text);
+            transition: 0.3s;
+            pointer-events: none;
+        }
+
+        .input-group input:focus ~ label,
+        .input-group input:valid ~ label,
+        .input-group textarea:focus ~ label,
+        .input-group textarea:valid ~ label {
+            top: -20px;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+        }
+
+        footer {
+            padding: 50px 5%;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--subtle-text);
+        }
+
+        .socials a {
+            margin-left: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .socials a:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 3.5rem; }
+            .about, .services-container, .pricing-grid, .journal-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: 1fr 1fr; }
+            .nav-links { display: none; }
+            .hamburger { display: block; }
+            .team-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+            .contact h2 { font-size: 2.5rem; }
+            footer { flex-direction: column; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor"></div>
+
+    <!-- 1. NAVIGATION -->
+    <nav>
+        <div class="logo">AURA.</div>
+        <div class="nav-links">
+            <a href="#work" class="nav-link">Work</a>
+            <a href="#about" class="nav-link">Studio</a>
+            <a href="#services" class="nav-link">Services</a>
+            <a href="#pricing" class="nav-link">Pricing</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </div>
+        <div class="hamburger">///</div>
+    </nav>
+
+    <!-- 2. HERO SECTION -->
+    <section class="hero">
+        <div class="hero-bg" id="hero-bg"></div>
+        <div class="hero-content reveal-text">
+            <p>Capturing the Soul</p>
+            <h1>Moments in <br>Eternity</h1>
+            <a href="#work" class="btn">View Portfolio</a>
+        </div>
+        <div class="scroll-indicator">
+            <span>SCROLL</span>
+            <div class="line"></div>
+        </div>
+    </section>
+
+    <!-- 3. AWARDS STRIP -->
+    <div class="awards">
+        <span>VOGUE</span>
+        <span>HARPER'S BAZAAR</span>
+        <span>ELLE DECOR</span>
+        <span>VANITY FAIR</span>
+        <span>ARCHITECTURAL DIGEST</span>
+    </div>
+
+    <!-- 4. ABOUT SECTION -->
+    <section class="about" id="about">
+        <div class="about-img-container reveal-text">
+            <img src="https://images.unsplash.com/photo-1554048612-387768052bf7?q=80&w=1935&auto=format&fit=crop" alt="Photographer">
+        </div>
+        <div class="about-text reveal-text">
+            <h4>The Vision</h4>
+            <h2>We don't just take photos.<br>We craft legacies.</h2>
+            <p>Aura Studios was born from a desire to freeze time in its most elegant form. Whether it's the intimate quiet of a portrait or the grandeur of a wedding day, we bring a cinematic eye to every frame.</p>
+            <p>Our approach is minimalist, focusing on light, shadow, and raw emotion. We believe beauty lies in authenticity.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Signature_sample.svg" alt="Signature" style="width: 150px; filter: invert(1); opacity: 0.7;">
+        </div>
+    </section>
+
+    <!-- 5. PROCESS SECTION -->
+    <section class="process">
+        <div class="section-header reveal-text">
+            <h4>How We Work</h4>
+            <h2>The Experience</h2>
+        </div>
+        <div class="process-grid">
+            <div class="process-item reveal-text">
+                <span class="process-num">01</span>
+                <h3>Consultation</h3>
+                <p>We meet over coffee or Zoom to discuss your vision, style preferences, and the story you want to tell.</p>
+            </div>
+            <div class="process-item reveal-text" style="transition-delay: 0.2s;">
+                <span class="process-num">02</span>
+                <h3>The Shoot</h3>
+                <p>Guided by our creative direction, we create a relaxed atmosphere where natural moments can unfold.</p>
+            </div>
+            <div class="process-item reveal-text" style="transition-delay: 0.4s;">
+                <span class="process-num">03</span>
+                <h3>Curation</h3>
+                <p>Each image is meticulously edited for color and tone, delivered in a private online gallery.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. PORTFOLIO SECTION -->
+    <section class="portfolio" id="work">
+        <div class="section-header reveal-text">
+            <h4>Selected Works</h4>
+            <h2>The Gallery</h2>
+        </div>
+        <div class="filter-nav">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="portrait">Portrait</button>
+            <button class="filter-btn" data-filter="editorial">Editorial</button>
+            <button class="filter-btn" data-filter="landscape">Landscape</button>
+        </div>
+
+        <div class="gallery-grid">
+            <!-- Item 1 (Portrait) -->
+            <div class="gallery-item tall portrait show">
+                <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=1964&auto=format&fit=crop" alt="Portrait">
+                <div class="gallery-overlay"><span>Ethereal Gaze</span></div>
+            </div>
+            <!-- Item 2 (Editorial) -->
+            <div class="gallery-item wide editorial show">
+                <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop" alt="Fashion">
+                <div class="gallery-overlay"><span>Vogue Edit</span></div>
+            </div>
+            <!-- Item 3 (Landscape) -->
+            <div class="gallery-item landscape show">
+                <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=2070&auto=format&fit=crop" alt="Nature">
+                <div class="gallery-overlay"><span>Silent Hills</span></div>
+            </div>
+            <!-- Item 4 (Portrait) -->
+            <div class="gallery-item portrait show">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop" alt="Portrait">
+                <div class="gallery-overlay"><span>Raw Emotion</span></div>
+            </div>
+            <!-- Item 5 (Editorial) -->
+            <div class="gallery-item tall editorial show">
+                <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2070&auto=format&fit=crop" alt="Fashion">
+                <div class="gallery-overlay"><span>Urban Style</span></div>
+            </div>
+            <!-- Item 6 (Landscape) -->
+            <div class="gallery-item wide landscape show">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop" alt="Nature">
+                <div class="gallery-overlay"><span>Yosemite</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. SERVICES SECTION -->
+    <section class="services" id="services">
+        <div class="section-header reveal-text">
+            <h4>What We Do</h4>
+            <h2>Expertise</h2>
+        </div>
+        <div class="services-container">
+            <div class="service-card reveal-text">
+                <span class="service-num">01</span>
+                <h3>Editorial & Fashion</h3>
+                <p>High-end photography for brands, magazines, and personal portfolios. Includes styling consultation and creative direction.</p>
+            </div>
+            <div class="service-card reveal-text" style="transition-delay: 0.2s;">
+                <span class="service-num">02</span>
+                <h3>Wedding & Events</h3>
+                <p>Capturing your most precious moments with a documentary style. We focus on candid, unscripted beauty.</p>
+            </div>
+            <div class="service-card reveal-text" style="transition-delay: 0.4s;">
+                <span class="service-num">03</span>
+                <h3>Fine Art Portraits</h3>
+                <p>Intimate studio sessions designed to capture your true essence. Perfect for artists, authors, and professionals.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. TEAM SECTION -->
+    <section class="team">
+        <div class="section-header reveal-text">
+            <h4>The Creatives</h4>
+            <h2>Meet the Team</h2>
+        </div>
+        <div class="team-grid">
+            <div class="team-member reveal-text">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop" class="team-img" alt="Photographer 1">
+                <h3>Julian Vane</h3>
+                <span class="team-role">Lead Photographer</span>
+            </div>
+            <div class="team-member reveal-text" style="transition-delay: 0.2s;">
+                <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=2071&auto=format&fit=crop" class="team-img" alt="Photographer 2">
+                <h3>Elena Cross</h3>
+                <span class="team-role">Creative Director</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. TESTIMONIALS -->
+    <section class="testimonials">
+        <div class="test-content reveal-text">
+            <span class="quote-icon">“</span>
+            <p class="test-text">"Aura Studios didn't just take photos; they captured the very soul of our wedding day. Every image is a piece of art we will treasure forever."</p>
+            <p style="text-transform: uppercase; letter-spacing: 2px;">— Sophia & James, London</p>
+        </div>
+    </section>
+
+    <!-- 10. PRICING SECTION -->
+    <section class="pricing" id="pricing">
+        <div class="section-header reveal-text">
+            <h4>Investment</h4>
+            <h2>Packages</h2>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card reveal-text">
+                <h3>Portrait</h3>
+                <div class="price">$450</div>
+                <ul class="price-features">
+                    <li>1 Hour Studio Session</li>
+                    <li>2 Outfit Changes</li>
+                    <li>10 Retouched Images</li>
+                    <li>Online Gallery</li>
+                </ul>
+                <a href="#contact" class="btn">Book Now</a>
+            </div>
+            <div class="pricing-card reveal-text" style="border-color: var(--accent-color); transform: scale(1.05);">
+                <h3>Editorial</h3>
+                <div class="price">$850</div>
+                <ul class="price-features">
+                    <li>3 Hour Location Shoot</li>
+                    <li>Unlimited Outfits</li>
+                    <li>25 Retouched Images</li>
+                    <li>Commercial Usage</li>
+                </ul>
+                <a href="#contact" class="btn">Book Now</a>
+            </div>
+            <div class="pricing-card reveal-text">
+                <h3>Wedding</h3>
+                <div class="price">$3,200<span>+</span></div>
+                <ul class="price-features">
+                    <li>8 Hours Coverage</li>
+                    <li>Second Shooter</li>
+                    <li>400+ Edited Images</li>
+                    <li>Fine Art Album</li>
+                </ul>
+                <a href="#contact" class="btn">Inquire</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. FAQ SECTION -->
+    <section class="faq-section">
+        <div class="section-header reveal-text">
+            <h4>Common Questions</h4>
+            <h2>FAQ</h2>
+        </div>
+        <div class="faq reveal-text">
+            <div class="accordion-item">
+                <div class="accordion-header">How far in advance should I book? <span>+</span></div>
+                <div class="accordion-body">
+                    <p>For weddings, we recommend booking 9-12 months in advance. For portrait sessions, 3-4 weeks is usually sufficient.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header">Do you travel for shoots? <span>+</span></div>
+                <div class="accordion-body">
+                    <p>Absolutely. We are based in NYC but travel worldwide. Travel fees are calculated based on location.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header">What is your turnaround time? <span>+</span></div>
+                <div class="accordion-body">
+                    <p>For portraits, 2 weeks. For weddings and large events, 6-8 weeks for the full gallery.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. JOURNAL SECTION -->
+    <section class="journal">
+        <div class="section-header reveal-text">
+            <h4>Stories</h4>
+            <h2>The Journal</h2>
+        </div>
+        <div class="journal-grid">
+            <div class="journal-item reveal-text">
+                <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=2070&auto=format&fit=crop" class="journal-img" alt="Blog 1">
+                <span class="journal-date">Oct 12, 2023</span>
+                <h3>The Art of Black & White</h3>
+            </div>
+            <div class="journal-item reveal-text" style="transition-delay: 0.1s;">
+                <img src="https://images.unsplash.com/photo-1520052205864-92d242b3a76b?q=80&w=2069&auto=format&fit=crop" class="journal-img" alt="Blog 2">
+                <span class="journal-date">Sep 05, 2023</span>
+                <h3>Capturing Authentic Joy</h3>
+            </div>
+            <div class="journal-item reveal-text" style="transition-delay: 0.2s;">
+                <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=2070&auto=format&fit=crop" class="journal-img" alt="Blog 3">
+                <span class="journal-date">Aug 21, 2023</span>
+                <h3>Wedding Trends 2024</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- 13. CONTACT SECTION -->
+    <section class="contact" id="contact">
+        <div class="reveal-text">
+            <p style="color: var(--accent-color); letter-spacing: 2px;">GET IN TOUCH</p>
+            <h2>Let's Create Magic</h2>
+        </div>
+        
+        <form class="contact-form reveal-text">
+            <div class="input-group">
+                <input type="text" required>
+                <label>Name</label>
+            </div>
+            <div class="input-group">
+                <input type="email" required>
+                <label>Email</label>
+            </div>
+            <div class="input-group">
+                <textarea rows="4" required></textarea>
+                <label>Tell us about your project</label>
+            </div>
+            <button type="submit" class="btn">Send Inquiry</button>
+        </form>
+    </section>
+
+    <!-- 14. FOOTER -->
+    <footer>
+        <div class="logo">AURA.</div>
+        <div>&copy; 2024 Aura Studios. All rights reserved.</div>
+        <div class="socials">
+            <a href="#">Instagram</a>
+            <a href="#">Behance</a>
+            <a href="#">Twitter</a>
+        </div>
+    </footer>
+
+    <script>
+        // --- 1. CUSTOM CURSOR ---
+        const cursor = document.querySelector('.cursor');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        const hoverElements = document.querySelectorAll('a, button, .gallery-item, .accordion-header, .journal-item');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+        });
+
+        // --- 2. SCROLL REVEAL & PARALLAX ---
+        const revealElements = document.querySelectorAll('.reveal-text');
+        const heroBg = document.getElementById('hero-bg');
+
+        function onScroll() {
+            const scrollPos = window.scrollY;
+            const windowHeight = window.innerHeight;
+
+            // Parallax Hero
+            if (scrollPos < windowHeight) {
+                heroBg.style.transform = `translateY(${scrollPos * 0.5}px)`;
+            }
+
+            // Reveal Text
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', onScroll);
+        onScroll();
+
+        // --- 3. GALLERY FILTER ---
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                galleryItems.forEach(item => {
+                    if (filterValue === 'all' || item.classList.contains(filterValue)) {
+                        item.classList.remove('hide');
+                        setTimeout(() => item.classList.add('show'), 10);
+                    } else {
+                        item.classList.remove('show');
+                        setTimeout(() => item.classList.add('hide'), 500);
+                    }
+                });
+            });
+        });
+
+        // --- 4. ACCORDION ---
+        const accHeaders = document.querySelectorAll('.accordion-header');
+        accHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const body = header.nextElementSibling;
+                if (body.style.maxHeight) {
+                    body.style.maxHeight = null;
+                } else {
+                    document.querySelectorAll('.accordion-body').forEach(b => b.style.maxHeight = null);
+                    body.style.maxHeight = body.scrollHeight + "px";
+                }
+            });
+        });
+
+        // --- 5. FORM HANDLER ---
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for reaching out. We will be in touch shortly.');
+            e.target.reset();
+        });
+
+    </script>
+</body>
+</html>
