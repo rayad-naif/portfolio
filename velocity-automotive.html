@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELOCITY | Pure Electric Performance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050505;
+            --accent: #0066ff;
+            --surface: #111;
+            --text: #ffffff;
+            --font-head: 'Syncopate', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; line-height: 1.6; }
+        h1, h2, h3 { font-family: var(--font-head); text-transform: uppercase; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { width: 100%; display: block; object-fit: cover; }
+
+        section { padding: 120px 5%; border-bottom: 1px solid #222; position: relative; }
+        .reveal { opacity: 0; transform: translateY(40px); transition: var(--transition); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* 1. NAV */
+        nav { position: fixed; top: 0; width: 100%; padding: 30px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; mix-blend-mode: difference; }
+        .logo { font-size: 1.2rem; font-weight: 700; letter-spacing: -1px; }
+        .nav-links { display: flex; gap: 40px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* 2. HERO */
+        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0; }
+        .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.4); z-index: -1; }
+        .hero h1 { font-size: 8vw; line-height: 0.9; letter-spacing: -0.05em; }
+        .hero h1 span { color: transparent; -webkit-text-stroke: 1px #fff; }
+
+        /* 3. PERFORMANCE STATS */
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center; }
+        .stat-val { font-family: var(--font-head); font-size: 5rem; color: var(--accent); display: block; }
+        .stat-label { text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; color: #666; }
+
+        /* 4. AERO DESIGN */
+        .aero { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .aero-img { border-radius: 4px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,102,255,0.1); }
+
+        /* 5. INTERIOR LUXURY */
+        .interior { background: var(--surface); }
+        .interior-header { text-align: center; margin-bottom: 60px; }
+
+        /* 6. TECH STACK */
+        .tech-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: #222; }
+        .tech-item { background: var(--bg); padding: 60px; }
+
+        /* 7. CHARGING */
+        .charging { text-align: center; }
+        .range-bar { height: 2px; background: #222; width: 100%; margin: 40px 0; position: relative; }
+        .range-fill { position: absolute; left: 0; top: 0; height: 100%; background: var(--accent); width: 0; transition: 2s ease; }
+        .range-fill.active { width: 85%; }
+
+        /* 8. RECOGNITION */
+        .awards { display: flex; justify-content: space-around; padding: 60px 0; background: #fff; color: #000; font-family: var(--font-head); font-size: 1.2rem; }
+
+        /* 9. TESTIMONIALS */
+        .quote { text-align: center; max-width: 900px; margin: 0 auto; font-size: 2.5rem; font-family: var(--font-head); }
+
+        /* 10. CONFIGURATOR */
+        .cta-box { background: var(--accent); padding: 80px; text-align: center; border-radius: 4px; }
+        .btn-white { display: inline-block; padding: 15px 40px; background: #fff; color: #000; text-transform: uppercase; font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; }
+
+        /* 11. NEWS */
+        .journal-item { display: flex; justify-content: space-between; padding: 40px 0; border-top: 1px solid #222; }
+
+        /* 12. FOOTER */
+        footer { padding: 80px 5%; display: flex; justify-content: space-between; align-items: flex-end; color: #444; font-size: 0.7rem; text-transform: uppercase; }
+
+        @media (max-width: 900px) {
+            .stats-grid, .aero, .tech-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 15vw; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">VELOCITY.</div>
+        <div class="nav-links">
+            <a href="#">Model S</a>
+            <a href="#">Technology</a>
+            <a href="#">Experience</a>
+            <a href="#" style="color: var(--accent)">Pre-Order</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <img src="https://images.unsplash.com/photo-1617788138017-80ad422432a9?q=80&w=2670&auto=format&fit=crop" class="hero-video" alt="Car">
+        <div class="hero-content">
+            <h1>ZERO <span>LIMITS</span></h1>
+            <p class="reveal">The fastest accelerating electric production vehicle ever made.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="stats-grid">
+            <div class="reveal">
+                <span class="stat-val" data-target="1.9">0</span>
+                <span class="stat-label">0-60 MPH (SEC)</span>
+            </div>
+            <div class="reveal" style="transition-delay: 0.2s">
+                <span class="stat-val" data-target="1100">0</span>
+                <span class="stat-label">PEAK HP</span>
+            </div>
+            <div class="reveal" style="transition-delay: 0.4s">
+                <span class="stat-val" data-target="420">0</span>
+                <span class="stat-label">RANGE (MI)</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="aero">
+        <div class="reveal">
+            <h4 style="color: var(--accent); font-size: 0.7rem; letter-spacing: 3px; margin-bottom: 20px;">ENGINEERING</h4>
+            <h2>Fluid Dynamics</h2>
+            <p style="margin-top: 30px; color: #888;">Every curve is calculated. Velocity achieves a drag coefficient of 0.208 Cd, the lowest on the planet. This isn't just design—it's physics applied to luxury.</p>
+        </div>
+        <div class="aero-img reveal">
+            <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=2574&auto=format&fit=crop" alt="Details">
+        </div>
+    </section>
+
+    <section class="tech-grid">
+        <div class="tech-item reveal">
+            <h3>Carbon Core</h3>
+            <p style="color:#666; margin-top:20px;">Aerospace grade carbon fiber monocoque for unparalleled structural rigidity and safety.</p>
+        </div>
+        <div class="tech-item reveal">
+            <h3>Neural Drive</h3>
+            <p style="color:#666; margin-top:20px;">AI-assisted driving that learns your habits and predicts road conditions in real-time.</p>
+        </div>
+        <div class="tech-item reveal">
+            <h3>Plaid Motors</h3>
+            <p style="color:#666; margin-top:20px;">Triple motor setup with carbon-sleeved rotors for sustained high-speed performance.</p>
+        </div>
+        <div class="tech-item reveal">
+            <h3>Glass Roof</h3>
+            <p style="color:#666; margin-top:20px;">Full panoramic acoustic glass that blocks 99% of UV rays while offering total clarity.</p>
+        </div>
+    </section>
+
+    <section class="interior">
+        <div class="interior-header reveal">
+            <h2>The Sanctuary</h2>
+            <p style="color:#888;">Minimalist. Vegan. Sustainable.</p>
+        </div>
+        <img src="https://images.unsplash.com/photo-1532581291347-9c39cf10a73c?q=80&w=2670&auto=format&fit=crop" class="reveal" style="height: 600px;" alt="Interior">
+    </section>
+
+    <section class="charging">
+        <div class="reveal">
+            <h2>80% in 15 Min</h2>
+            <p>Our V4 Superchargers deliver 350kW of pure energy.</p>
+            <div class="range-bar"><div class="range-fill"></div></div>
+            <p class="mono" style="color: var(--accent);">Charging Status: Optimal</p>
+        </div>
+    </section>
+
+    <section class="quote">
+        <blockquote class="reveal">"THE FUTURE OF TRANSPORTATION ISN'T JUST ELECTRIC. IT'S EMOTIONAL."</blockquote>
+    </section>
+
+    <section class="awards">
+        <span>Car of the Year 2024</span>
+        <span>Red Dot Design Winner</span>
+        <span>Green Tech Award</span>
+    </section>
+
+    <section>
+        <div class="cta-box reveal">
+            <h2 style="font-size: 3rem; margin-bottom: 30px;">Drive the Revolution</h2>
+            <a href="#" class="btn-white">Book a Test Drive</a>
+        </div>
+    </section>
+
+    <section>
+        <h2 style="margin-bottom: 40px;">Velocity Journal</h2>
+        <div class="journal-item reveal">
+            <span>24.01.24</span>
+            <h3>Opening the Giga-Factory in Austin</h3>
+            <span>Read More +</span>
+        </div>
+        <div class="journal-item reveal">
+            <span>12.01.24</span>
+            <h3>How AI is solving traffic congestion</h3>
+            <span>Read More +</span>
+        </div>
+    </section>
+
+    <footer>
+        <div>
+            <h2 style="color:#fff; letter-spacing: -2px;">VELOCITY.</h2>
+            <p>© 2024 Velocity Motors Inc.</p>
+        </div>
+        <div style="text-align: right;">
+            <p>Twitter / Instagram / LinkedIn</p>
+            <p>Privacy / Terms / Careers</p>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    if(entry.target.querySelector('.stat-val')) startCount(entry.target.querySelector('.stat-val'));
+                    if(entry.target.querySelector('.range-fill')) entry.target.querySelector('.range-fill').classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        function startCount(el) {
+            const target = parseFloat(el.getAttribute('data-target'));
+            let current = 0;
+            const step = target / 50;
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    el.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    el.textContent = target % 1 === 0 ? Math.floor(current) : current.toFixed(1);
+                }
+            }, 30);
+        }
+    </script>
+</body>
+</html>

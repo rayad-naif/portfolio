@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARKITEKT | Designing the Future of Space</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syncopate:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- 0. CSS VARIABLES & RESET --- */
+        :root {
+            --bg: #0f0f0f;
+            --surface: #1a1a1a;
+            --text: #ffffff;
+            --sub-text: #888888;
+            --accent: #c4c4c4;
+            --font-head: 'Syncopate', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+            --font-body: 'Inter', sans-serif;
+            --transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-head);
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- UTILITIES --- */
+        section {
+            padding: 120px 5%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: var(--transition);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mono {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: var(--sub-text);
+            text-transform: uppercase;
+        }
+
+        /* --- 1. NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-link {
+            font-size: 0.7rem;
+            font-family: var(--font-mono);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #fff;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* --- 2. HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 0;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop') center/cover;
+            filter: brightness(0.4);
+            z-index: -1;
+            animation: zoomOut 20s infinite alternate;
+        }
+
+        @keyframes zoomOut {
+            from { transform: scale(1.1); }
+            to { transform: scale(1); }
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 1200px;
+        }
+
+        .hero h1 {
+            font-size: 12vw;
+            line-height: 0.85;
+            letter-spacing: -0.05em;
+        }
+
+        .hero h1 span {
+            color: transparent;
+            -webkit-text-stroke: 1px #fff;
+        }
+
+        /* --- 3. MANIFESTO --- */
+        .manifesto {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 80px;
+            align-items: flex-start;
+        }
+
+        .manifesto h2 {
+            font-size: 4rem;
+            line-height: 1;
+        }
+
+        .manifesto p {
+            font-size: 1.8rem;
+            color: var(--sub-text);
+        }
+
+        .manifesto p b {
+            color: #fff;
+        }
+
+        /* --- 4. EXPERTISE (Services) --- */
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-top: 60px;
+        }
+
+        .expertise-item {
+            background: var(--bg);
+            padding: 60px;
+            transition: 0.4s;
+        }
+
+        .expertise-item:hover {
+            background: #222;
+        }
+
+        .expertise-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .expertise-item p {
+            color: var(--sub-text);
+        }
+
+        /* --- 5. SELECTED PROJECTS --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            margin-top: 60px;
+        }
+
+        .project-card {
+            grid-column: span 6;
+            position: relative;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .project-card.narrow { grid-column: span 4; }
+        .project-card.wide { grid-column: span 8; }
+
+        .project-img {
+            height: 600px;
+            transition: transform 1.5s ease;
+            opacity: 0.7;
+        }
+
+        .project-card:hover .project-img {
+            transform: scale(1.05);
+            opacity: 1;
+        }
+
+        .project-info {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            z-index: 2;
+        }
+
+        /* --- 6. RECOGNITION (Awards) --- */
+        .awards {
+            padding: 40px 0;
+            background: #fff;
+            color: #000;
+            overflow: hidden;
+            display: flex;
+            white-space: nowrap;
+        }
+
+        .awards-track {
+            display: flex;
+            animation: marquee 30s linear infinite;
+        }
+
+        .awards-track span {
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            margin-right: 80px;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* --- 7. STATISTICS --- */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            text-align: center;
+        }
+
+        .stat-item h2 {
+            font-size: 5rem;
+            margin-bottom: 10px;
+        }
+
+        /* --- 8. QUOTE --- */
+        .quote {
+            text-align: center;
+        }
+
+        .quote blockquote {
+            font-family: var(--font-head);
+            font-size: 4rem;
+            line-height: 1.1;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* --- 9. THE PROCESS --- */
+        .process-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            align-items: center;
+        }
+
+        .process-row:hover {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .process-num {
+            font-family: var(--font-mono);
+            color: var(--sub-text);
+        }
+
+        .process-title {
+            font-size: 2rem;
+            font-family: var(--font-head);
+        }
+
+        /* --- 10. TEAM --- */
+        .team-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .team-member img {
+            height: 400px;
+            filter: grayscale(1);
+            margin-bottom: 20px;
+            transition: 0.5s;
+        }
+
+        .team-member:hover img {
+            filter: grayscale(0);
+        }
+
+        /* --- 11. JOURNAL --- */
+        .journal-item {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .journal-date { color: var(--sub-text); font-family: var(--font-mono); }
+
+        /* --- 12. CONTACT --- */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+        }
+
+        .form-group {
+            margin-bottom: 40px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 15px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #444;
+            padding: 10px 0;
+            color: #fff;
+            font-size: 1.2rem;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-bottom-color: #fff;
+        }
+
+        /* --- 13. FOOTER --- */
+        footer {
+            padding: 80px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--sub-text);
+        }
+
+        .footer-logo {
+            font-family: var(--font-head);
+            font-size: 3rem;
+            color: #fff;
+            letter-spacing: -4px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .manifesto, .contact-grid, .team-list, .stats { grid-template-columns: 1fr; }
+            .project-card { grid-column: span 12; }
+            .hero h1 { font-size: 18vw; }
+            .manifesto h2 { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. NAVIGATION -->
+    <nav>
+        <div class="logo">ARKKT.</div>
+        <div class="nav-links">
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#contact" class="nav-link">Inquire</a>
+        </div>
+    </nav>
+
+    <!-- 2. HERO -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <span class="mono">London • New York • Tokyo</span>
+            <h1>PURE <span>FORM</span></h1>
+            <p class="reveal">International studio crafting sustainable architectural monuments.</p>
+        </div>
+    </section>
+
+    <!-- 3. MANIFESTO -->
+    <section class="manifesto" id="about">
+        <div class="reveal">
+            <span class="mono">Philosophy</span>
+            <h2>Space is <i>Emotion</i>.</h2>
+        </div>
+        <div class="reveal">
+            <p>We believe that <b>architecture</b> is the most powerful tool for shaping human experience. Our manifesto is simple: strip away the unnecessary until only the <b>essential</b> remains.</p>
+        </div>
+    </section>
+
+    <!-- 4. EXPERTISE -->
+    <section>
+        <span class="mono">Expertise</span>
+        <div class="expertise-grid">
+            <div class="expertise-item reveal">
+                <h3>01. Urban Planning</h3>
+                <p>Designing entire city ecosystems that prioritize transit, green space, and human connectivity.</p>
+            </div>
+            <div class="expertise-item reveal">
+                <h3>02. Interior Architecture</h3>
+                <p>Curating the tactile world. Every handle, stone, and light fixture is a deliberate choice.</p>
+            </div>
+            <div class="expertise-item reveal">
+                <h3>03. Sustainability</h3>
+                <p>Net-zero structures that utilize passive cooling, rainwater harvesting, and recycled alloys.</p>
+            </div>
+            <div class="expertise-item reveal">
+                <h3>04. Cultural Icons</h3>
+                <p>Museums, galleries, and public squares designed to stand for centuries as local landmarks.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. SELECTED PROJECTS -->
+    <section id="projects">
+        <div class="section-header reveal">
+            <span class="mono">Selected Work</span>
+            <h2>The Portfolio</h2>
+        </div>
+        <div class="project-grid">
+            <div class="project-card reveal wide">
+                <div class="project-img" style="background: url('https://images.unsplash.com/photo-1481253127861-174457a60b4d?q=80&w=2574&auto=format&fit=crop') center/cover;"></div>
+                <div class="project-info">
+                    <span class="mono">Commercial / Berlin</span>
+                    <h3>THE QUARTZ HUB</h3>
+                </div>
+            </div>
+            <div class="project-card reveal narrow">
+                <div class="project-img" style="background: url('https://images.unsplash.com/photo-1518005020251-095c1a04875b?q=80&w=2564&auto=format&fit=crop') center/cover;"></div>
+                <div class="project-info">
+                    <span class="mono">Residential / Oslo</span>
+                    <h3>SILENT CLIFF</h3>
+                </div>
+            </div>
+            <div class="project-card reveal narrow">
+                <div class="project-img" style="background: url('https://images.unsplash.com/photo-1541462608141-ad60397d4cc7?q=80&w=2670&auto=format&fit=crop') center/cover;"></div>
+                <div class="project-info">
+                    <span class="mono">Cultural / Kyoto</span>
+                    <h3>ZENITH PAVILION</h3>
+                </div>
+            </div>
+            <div class="project-card reveal wide">
+                <div class="project-img" style="background: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=2662&auto=format&fit=crop') center/cover;"></div>
+                <div class="project-info">
+                    <span class="mono">Urban / New York</span>
+                    <h3>SKY GARDENS</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. AWARDS -->
+    <div class="awards">
+        <div class="awards-track">
+            <span>Pritzker Prize 2023</span>
+            <span>AIA Gold Medal</span>
+            <span>RIBA International Award</span>
+            <span>Mies van der Rohe Award</span>
+            <span>Pritzker Prize 2023</span>
+            <span>AIA Gold Medal</span>
+            <span>RIBA International Award</span>
+            <span>Mies van der Rohe Award</span>
+        </div>
+    </div>
+
+    <!-- 7. STATISTICS -->
+    <section class="stats">
+        <div class="stat-item reveal"><h2>42</h2><p class="mono">Global Projects</p></div>
+        <div class="stat-item reveal"><h2>12</h2><p class="mono">Award Wins</p></div>
+        <div class="stat-item reveal"><h2>05</h2><p class="mono">Continents</p></div>
+        <div class="stat-item reveal"><h2>100%</h2><p class="mono">Carbon Neutral</p></div>
+    </section>
+
+    <!-- 8. QUOTE -->
+    <section class="quote">
+        <blockquote class="reveal">"TO PROVIDE MEANINGFUL ARCHITECTURE IS NOT TO PARODY HISTORY BUT TO ARTICULATE IT."</blockquote>
+    </section>
+
+    <!-- 9. THE PROCESS -->
+    <section>
+        <span class="mono">Workflow</span>
+        <div class="process-row reveal">
+            <span class="process-num">01</span>
+            <h3 class="process-title">Conceptualization</h3>
+            <p style="width: 30%;">Initial sketch and site analysis.</p>
+        </div>
+        <div class="process-row reveal">
+            <span class="process-num">02</span>
+            <h3 class="process-title">3D Visualization</h3>
+            <p style="width: 30%;">Photorealistic light study.</p>
+        </div>
+        <div class="process-row reveal">
+            <span class="process-num">03</span>
+            <h3 class="process-title">Material Sourcing</h3>
+            <p style="width: 30%;">Sustainable concrete and glass.</p>
+        </div>
+        <div class="process-row reveal">
+            <span class="process-num">04</span>
+            <h3 class="process-title">Supervision</h3>
+            <p style="width: 30%;">On-site quality management.</p>
+        </div>
+    </section>
+
+    <!-- 10. TEAM -->
+    <section class="team">
+        <div class="section-header reveal">
+            <span class="mono">The Collective</span>
+            <h2>Our Partners</h2>
+        </div>
+        <div class="team-list">
+            <div class="team-member reveal">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1887&auto=format&fit=crop" alt="Partner">
+                <h3>Marcus Aurel</h3>
+                <p class="mono">Chief Architect</p>
+            </div>
+            <div class="team-member reveal">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format&fit=crop" alt="Partner">
+                <h3>Sela Vane</h3>
+                <p class="mono">Structural Lead</p>
+            </div>
+            <div class="team-member reveal">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2070&auto=format&fit=crop" alt="Partner">
+                <h3>Julian Thorne</h3>
+                <p class="mono">Urban Planner</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. JOURNAL -->
+    <section>
+        <div class="section-header reveal">
+            <span class="mono">Insights</span>
+            <h2>The Journal</h2>
+        </div>
+        <div class="journal-item reveal">
+            <span class="journal-date">24.10.23</span>
+            <div>
+                <h3>The evolution of concrete in modern design.</h3>
+                <p>Exploring the textural possibilities of raw cast-in-place materials.</p>
+            </div>
+        </div>
+        <div class="journal-item reveal">
+            <span class="journal-date">05.09.23</span>
+            <div>
+                <h3>Biophilic patterns in workplace interiors.</h3>
+                <p>How nature-inspired geometry reduces worker burnout.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. CONTACT -->
+    <section id="contact">
+        <div class="contact-grid">
+            <div class="reveal">
+                <h2>START A <br> <i>PROJECT</i>.</h2>
+                <p style="margin-top: 40px;">studio@arkitekt.london</p>
+                <p>+44 20 7946 0958</p>
+            </div>
+            <form class="reveal" onsubmit="event.preventDefault(); alert('Transmission Received.');">
+                <div class="form-group">
+                    <label>YOUR NAME</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>EMAIL ADDRESS</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>PROJECT TYPE</label>
+                    <input type="text">
+                </div>
+                <button type="submit" class="btn" style="border: 1px solid #fff; padding: 15px 40px; color: #fff; background: transparent;">Send Inquiry</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- 13. FOOTER -->
+    <footer>
+        <div>
+            <div class="footer-logo">ARKKT.</div>
+            <p>© 2024 ARKITEKT STUDIO LONDON</p>
+        </div>
+        <div style="text-align: right;">
+            <p>INSTAGRAM / LINKEDIN / BEHANCE</p>
+            <p>PRIVACY POLICY / COOKIES</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- SCROLL REVEAL ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // --- NAVBAR SCROLL ---
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = "rgba(15,15,15,0.9)";
+                nav.style.padding = "20px 5%";
+            } else {
+                nav.style.background = "transparent";
+                nav.style.padding = "40px 5%";
+            }
+        });
+    </script>
+</body>
+</html>
