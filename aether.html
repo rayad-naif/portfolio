@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AETHER | The Art of Living Softly</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f8f7f4;
+            --text: #1a1a1a;
+            --sub: #8a8a8a;
+            --accent: #d4c1a5;
+            --font-head: 'Cormorant Garamond', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--text); font-family: var(--font-body); line-height: 1.8; overflow-x: hidden; }
+        h1, h2, h3 { font-family: var(--font-head); font-weight: 300; }
+        a { text-decoration: none; color: inherit; }
+        img { width: 100%; display: block; object-fit: cover; }
+
+        section { padding: 140px 10%; position: relative; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: var(--transition); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* 1. NAV */
+        nav { position: fixed; top: 0; width: 100%; padding: 40px 10%; display: flex; justify-content: space-between; z-index: 1000; }
+        .logo { font-size: 1.8rem; font-style: italic; font-family: var(--font-head); }
+
+        /* 2. HERO */
+        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .hero h1 { font-size: 7rem; line-height: 1; margin-bottom: 20px; }
+        .hero p { text-transform: uppercase; letter-spacing: 5px; font-size: 0.8rem; color: var(--sub); }
+
+        /* 3. MANIFESTO */
+        .manifesto { text-align: center; max-width: 800px; margin: 0 auto; }
+        .manifesto h2 { font-size: 3.5rem; margin-bottom: 40px; }
+
+        /* 4. COLLECTION */
+        .collection-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; }
+        .col-card { position: relative; overflow: hidden; }
+        .col-label { margin-top: 20px; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; }
+
+        /* 5. CRAFTSMANSHIP */
+        .craft { background: #fff; display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+
+        /* 6. LOOKBOOK */
+        .lookbook { padding: 0 5%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .look-img { height: 500px; filter: sepia(0.2); }
+
+        /* 7. SUSTAINABILITY */
+        .sus { text-align: center; background: #eceae3; }
+
+        /* 8. ATELIER */
+        .atelier { display: flex; justify-content: center; gap: 50px; }
+        .atelier-box { text-align: center; padding: 40px; border: 1px solid #ddd; width: 300px; border-radius: 200px 200px 0 0; }
+
+        /* 9. PRODUCT FOCUS */
+        .focus { background: #fff; text-align: center; }
+        .focus img { width: 50%; margin: 50px auto; }
+
+        /* 10. NEWSLETTER */
+        .newsletter { border-top: 1px solid #ddd; text-align: center; }
+        .newsletter input { border: none; border-bottom: 1px solid #000; background: transparent; padding: 10px; width: 300px; font-family: var(--font-head); font-size: 1.5rem; outline: none; }
+
+        /* 11. PRESS */
+        .press { display: flex; justify-content: space-around; opacity: 0.5; font-family: var(--font-head); font-size: 1.5rem; }
+
+        /* 12. FOOTER */
+        footer { padding: 60px 10%; border-top: 1px solid #ddd; display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--sub); }
+
+        @media (max-width: 800px) {
+            .collection-grid, .craft, .lookbook, .atelier { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 4rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Aether</div>
+        <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px;">Menu</div>
+    </nav>
+
+    <section class="hero">
+        <div class="reveal">
+            <p>Collection N° 04</p>
+            <h1>Satin <i>Dream</i></h1>
+            <a href="#" style="border-bottom: 1px solid #000; padding-bottom: 5px;">Shop Now</a>
+        </div>
+    </section>
+
+    <section class="manifesto">
+        <div class="reveal">
+            <h2>Luxury is a <i>Feeling</i>, not a Price Tag.</h2>
+            <p>We source the finest organic silks and linens from sustainable farms in Italy to create pieces that last a lifetime.</p>
+        </div>
+    </section>
+
+    <section class="collection-grid">
+        <div class="col-card reveal">
+            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2670&auto=format&fit=crop" style="height: 700px;" alt="Fashion">
+            <div class="col-label">The Evening Gown / $1,200</div>
+        </div>
+        <div class="col-card reveal" style="transition-delay: 0.2s; margin-top: 100px;">
+            <img src="https://images.unsplash.com/photo-1445205174230-b712951b674b?q=80&w=2670&auto=format&fit=crop" style="height: 500px;" alt="Fashion">
+            <div class="col-label">Silk Blouse / $450</div>
+        </div>
+    </section>
+
+    <section class="craft">
+        <div class="reveal">
+            <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=2574&auto=format&fit=crop" alt="Fabric">
+        </div>
+        <div class="reveal">
+            <h2>Hand-Stitched in Florence</h2>
+            <p>Every seam is finished by hand. Every button is carved from natural mother-of-pearl. We reject the fast-fashion cycle in favor of slow, intentional creation.</p>
+        </div>
+    </section>
+
+    <section class="lookbook">
+        <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2670&auto=format&fit=crop" class="look-img reveal" alt="1">
+        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2670&auto=format&fit=crop" class="look-img reveal" style="margin-top: 50px;" alt="2">
+        <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=2673&auto=format&fit=crop" class="look-img reveal" alt="3">
+        <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=2574&auto=format&fit=crop" class="look-img reveal" style="margin-top: 50px;" alt="4">
+    </section>
+
+    <section class="sus">
+        <div class="reveal">
+            <h2>Planet Conscious</h2>
+            <p>100% Recyclable Packaging. 0% Plastic. Carbon Neutral Shipping.</p>
+        </div>
+    </section>
+
+    <section class="atelier">
+        <div class="atelier-box reveal">
+            <h3>Paris</h3>
+            <p>Rue de Rivoli</p>
+        </div>
+        <div class="atelier-box reveal" style="transition-delay: 0.2s">
+            <h3>London</h3>
+            <p>Bond Street</p>
+        </div>
+        <div class="atelier-box reveal" style="transition-delay: 0.4s">
+            <h3>New York</h3>
+            <p>Fifth Avenue</p>
+        </div>
+    </section>
+
+    <section class="focus">
+        <div class="reveal">
+            <p style="text-transform: uppercase; letter-spacing: 3px;">The Signature Piece</p>
+            <h2>The Aether Trench</h2>
+            <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=2672&auto=format&fit=crop" alt="Coat">
+            <a href="#" class="btn" style="border: 1px solid #000; padding: 15px 40px;">Request Atelier Access</a>
+        </div>
+    </section>
+
+    <section class="press">
+        <span>Vogue</span>
+        <span>Harper's Bazaar</span>
+        <span>L'Officiel</span>
+        <span>Elle</span>
+    </section>
+
+    <section class="newsletter">
+        <div class="reveal">
+            <h2>Join the Atelier</h2>
+            <p>Exclusive early access to new seasonal collections.</p>
+            <form onsubmit="event.preventDefault(); alert('Welcome to Aether.');">
+                <input type="email" placeholder="Email Address">
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div>© 2024 AETHER ATELIER</div>
+        <div>INSTAGRAM / PINTEREST / TIKTOK</div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
