@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vignette | Independent Graphic Designer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700;800&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg: #0d0d0d;
+            --text: #ffffff;
+            --accent: #e0fd60; /* Volt Green */
+            --gray: #222;
+            --sub-text: #888;
+            --font-head: 'Syne', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-head);
+            text-transform: uppercase;
+            line-height: 0.9;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- CUSTOM CURSOR PROJECT REVEAL --- */
+        .project-preview {
+            position: fixed;
+            width: 300px;
+            height: 400px;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.4s, transform 0.4s;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .project-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- UTILITIES --- */
+        section {
+            padding: 140px 5%;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: var(--transition);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 5px 15px;
+            border: 1px solid var(--gray);
+            border-radius: 50px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        /* --- 1. NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            font-family: var(--font-head);
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-link {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* --- 2. HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        .hero h1 {
+            font-size: 12vw;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+        }
+
+        .hero h1 span {
+            color: transparent;
+            -webkit-text-stroke: 1px var(--text);
+        }
+
+        .hero-desc {
+            margin-top: 40px;
+            max-width: 500px;
+            font-size: 1.1rem;
+            color: var(--sub-text);
+        }
+
+        /* --- 3. RUNNING MARQUEE --- */
+        .marquee {
+            padding: 40px 0;
+            background: var(--accent);
+            color: var(--bg);
+            overflow: hidden;
+            display: flex;
+            white-space: nowrap;
+        }
+
+        .marquee-content {
+            display: flex;
+            animation: marqueeScroll 20s linear infinite;
+        }
+
+        .marquee-content h2 {
+            font-size: 4rem;
+            margin-right: 50px;
+        }
+
+        @keyframes marqueeScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* --- 4. FEATURED PROJECTS --- */
+        .projects-list {
+            margin-top: 50px;
+        }
+
+        .project-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 60px 0;
+            border-bottom: 1px solid var(--gray);
+            transition: 0.3s;
+        }
+
+        .project-item:hover {
+            border-bottom-color: var(--accent);
+        }
+
+        .project-item h3 {
+            font-size: 5rem;
+            transition: transform 0.4s;
+        }
+
+        .project-item:hover h3 {
+            transform: translateX(30px);
+            color: var(--accent);
+        }
+
+        .project-info {
+            text-align: right;
+            color: var(--sub-text);
+        }
+
+        /* --- 5. ABOUT SECTION --- */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 80px;
+        }
+
+        .about-text h2 {
+            font-size: 4rem;
+            margin-bottom: 30px;
+        }
+
+        .about-text p {
+            font-size: 1.5rem;
+            line-height: 1.4;
+            color: var(--sub-text);
+        }
+
+        .about-text p span {
+            color: var(--text);
+        }
+
+        /* --- 6. SKILLS TOOLBOX --- */
+        .toolbox {
+            background: var(--gray);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .tool-card {
+            padding: 40px;
+            background: var(--bg);
+            border-radius: 20px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .tool-card:hover {
+            background: var(--accent);
+            color: var(--bg);
+            transform: scale(1.05);
+        }
+
+        .tool-card i {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* --- 7. PHILOSOPHY --- */
+        .philosophy {
+            text-align: center;
+        }
+
+        .philosophy blockquote {
+            font-family: var(--font-head);
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* --- 8. SERVICES --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .service-box h4 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .service-box ul li {
+            margin-bottom: 10px;
+            color: var(--sub-text);
+        }
+
+        /* --- 9. EXPERIENCE --- */
+        .experience-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 30px 0;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        .exp-year { color: var(--accent); font-weight: 700; }
+
+        /* --- 10. STATISTICS --- */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background: var(--accent);
+            color: var(--bg);
+            padding: 80px 5%;
+        }
+
+        .stat-item h2 { font-size: 4rem; }
+
+        /* --- 11. JOURNAL/BLOG --- */
+        .journal-card {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 60px;
+            align-items: center;
+        }
+
+        .journal-img {
+            width: 200px;
+            height: 150px;
+            background: var(--gray);
+            border-radius: 10px;
+        }
+
+        /* --- 12. CONTACT --- */
+        .contact {
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 10vw;
+            margin-bottom: 40px;
+        }
+
+        .contact a:hover {
+            color: var(--accent);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 50px 5%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--sub-text);
+            text-transform: uppercase;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .about, .services-grid, .team-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 18vw; }
+            .project-item h3 { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="logo">VIGNETTE STUDIO.</div>
+        <div class="nav-links">
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <!-- PROJECT PREVIEW CURSOR -->
+    <div class="project-preview" id="project-preview">
+        <img src="" alt="Preview" id="preview-img">
+    </div>
+
+    <!-- 1. HERO -->
+    <section class="hero">
+        <span class="tag">Digital Craftsman</span>
+        <h1>PIXEL & <span>PAPER</span></h1>
+        <p class="hero-desc">Independent Graphic Designer & Creative Director. Specializing in high-end branding and interactive digital experiences.</p>
+        <a href="#contact" class="btn" style="margin-top: 40px; padding: 15px 40px; border: 1px solid #fff; border-radius: 50px;">Available for Freelance</a>
+    </section>
+
+    <!-- 2. MARQUEE -->
+    <div class="marquee">
+        <div class="marquee-content">
+            <h2>BRANDING • UI/UX • MOTION • STRATEGY • </h2>
+            <h2>BRANDING • UI/UX • MOTION • STRATEGY • </h2>
+            <h2>BRANDING • UI/UX • MOTION • STRATEGY • </h2>
+            <h2>BRANDING • UI/UX • MOTION • STRATEGY • </h2>
+        </div>
+    </div>
+
+    <!-- 3. PROJECTS -->
+    <section id="projects">
+        <div class="section-header">
+            <span class="tag">Selected Works</span>
+            <h2 style="font-size: 4rem;">The Portfolio</h2>
+        </div>
+        <div class="projects-list">
+            <!-- Project 1 -->
+            <a href="#" class="project-item" data-img="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=2671&auto=format&fit=crop">
+                <h3>GLITCH CORE</h3>
+                <div class="project-info">
+                    <span>Identity / 2023</span>
+                </div>
+            </a>
+            <!-- Project 2 -->
+            <a href="#" class="project-item" data-img="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2648&auto=format&fit=crop">
+                <h3>NEO TYPE</h3>
+                <div class="project-info">
+                    <span>Typography / 2023</span>
+                </div>
+            </a>
+            <!-- Project 3 -->
+            <a href="#" class="project-item" data-img="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop">
+                <h3>FLUX WEB</h3>
+                <div class="project-info">
+                    <span>Web Design / 2022</span>
+                </div>
+            </a>
+            <!-- Project 4 -->
+            <a href="#" class="project-item" data-img="https://images.unsplash.com/photo-1541462608141-ad60397d4cc7?q=80&w=2670&auto=format&fit=crop">
+                <h3>ONYX BRAND</h3>
+                <div class="project-info">
+                    <span>Branding / 2022</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- 4. ABOUT -->
+    <section class="about" id="about">
+        <div class="about-img">
+            <div style="width: 100%; height: 500px; background: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop') center/cover; filter: grayscale(1);"></div>
+        </div>
+        <div class="about-text reveal">
+            <h2>I Make Things <i>Stand Out</i>.</h2>
+            <p>I am a creative based in London with <span>8+ years</span> of experience. I believe that good design is not just about making things look "cool"—it's about <span>strategic visual communication</span> that solves problems.</p>
+        </div>
+    </section>
+
+    <!-- 5. TOOLBOX -->
+    <section class="toolbox">
+        <div class="section-header reveal">
+            <span class="tag">Stack</span>
+            <h2>My Toolbox</h2>
+        </div>
+        <div class="tools-grid">
+            <div class="tool-card reveal"><h3>Illustrator</h3><p>Identity & Vectors</p></div>
+            <div class="tool-card reveal"><h3>Figma</h3><p>Interface Design</p></div>
+            <div class="tool-card reveal"><h3>After Effects</h3><p>Motion Graphics</p></div>
+            <div class="tool-card reveal"><h3>Photoshop</h3><p>Manipulation</p></div>
+        </div>
+    </section>
+
+    <!-- 6. PHILOSOPHY -->
+    <section class="philosophy reveal">
+        <blockquote>"SIMPLICITY IS THE ULTIMATE SOPHISTICATION."</blockquote>
+    </section>
+
+    <!-- 7. SERVICES -->
+    <section class="services">
+        <div class="services-grid">
+            <div class="service-box reveal">
+                <h4>01. Branding</h4>
+                <ul><li>Logo Design</li><li>Brand Guidelines</li><li>Visual Strategy</li></ul>
+            </div>
+            <div class="service-box reveal">
+                <h4>02. Digital</h4>
+                <ul><li>Web Design</li><li>Mobile Apps</li><li>UI/UX Audit</li></ul>
+            </div>
+            <div class="service-box reveal">
+                <h4>03. Art Direction</h4>
+                <ul><li>Photography</li><li>Style Guides</li><li>Content Creation</li></ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. EXPERIENCE -->
+    <section class="experience">
+        <div class="section-header reveal"><h2>Timeline</h2></div>
+        <div class="experience-row reveal"><span class="exp-year">2021-Present</span><span>Senior Designer @ Meta</span></div>
+        <div class="experience-row reveal"><span class="exp-year">2018-2021</span><span>Visual Lead @ Apple</span></div>
+        <div class="experience-row reveal"><span class="exp-year">2015-2018</span><span>Junior Designer @ Pentagram</span></div>
+    </section>
+
+    <!-- 9. STATS -->
+    <div class="stats">
+        <div class="stat-item"><h2>120+</h2><p>Projects</p></div>
+        <div class="stat-item"><h2>14</h2><p>Awards</p></div>
+        <div class="stat-item"><h2>08</h2><p>Years</p></div>
+    </div>
+
+    <!-- 10. JOURNAL -->
+    <section>
+        <div class="section-header reveal"><h2>Journal</h2></div>
+        <div class="journal-card reveal">
+            <div class="journal-img"></div>
+            <div>
+                <span class="tag">Insight</span>
+                <h3>Why minimalist design is harder than it looks.</h3>
+            </div>
+        </div>
+        <div class="journal-card reveal">
+            <div class="journal-img"></div>
+            <div>
+                <span class="tag">Trend</span>
+                <h3>The return of maximalism in 2024.</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. CONTACT -->
+    <section class="contact" id="contact">
+        <h4 class="tag">Let's Talk</h4>
+        <h2 class="reveal"><a href="mailto:hello@vignette.design">HELLO@VIGNETTE.DESIGN</a></h2>
+    </section>
+
+    <!-- 12. FOOTER -->
+    <footer>
+        <div>© 2024 Vignette Studio</div>
+        <div>London / UK</div>
+        <div>Instagram / Behance / LinkedIn</div>
+    </footer>
+
+    <script>
+        // --- 1. PROJECT PREVIEW FOLLOW ---
+        const preview = document.getElementById('project-preview');
+        const previewImg = document.getElementById('preview-img');
+        const projectItems = document.querySelectorAll('.project-item');
+
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            // Adjust offset so it doesn't cover the cursor
+            preview.style.left = (x + 20) + 'px';
+            preview.style.top = (y + 20) + 'px';
+        });
+
+        projectItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const imgUrl = item.getAttribute('data-img');
+                previewImg.src = imgUrl;
+                preview.style.opacity = 1;
+                preview.style.transform = 'scale(1) rotate(2deg)';
+            });
+
+            item.addEventListener('mouseleave', () => {
+                preview.style.opacity = 0;
+                preview.style.transform = 'scale(0.8) rotate(0deg)';
+            });
+        });
+
+        // --- 2. SCROLL REVEAL ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
