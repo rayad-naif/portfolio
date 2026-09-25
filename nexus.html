@@ -1,205 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS | Creative Engineering Agency</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #ffffff;
-            --text: #000000;
-            --accent: #ff3e00; /* Neon Orange */
-            --gray: #f2f2f2;
-            --font: 'Space Grotesk', sans-serif;
-            --transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.5; overflow-x: hidden; }
-        h1, h2, h3 { font-weight: 700; text-transform: uppercase; line-height: 0.95; }
-        a { text-decoration: none; color: inherit; }
-
-        section { padding: 120px 5%; border-bottom: 1px solid #eee; }
-        .reveal { opacity: 0; transform: translateY(30px); transition: var(--transition); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        /* 1. NAV */
-        nav { position: fixed; top: 0; width: 100%; padding: 30px 5%; display: flex; justify-content: space-between; z-index: 1000; background: #fff; }
-        .logo { font-weight: 700; font-size: 1.5rem; }
-
-        /* 2. HERO */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; }
-        .hero h1 { font-size: 15vw; letter-spacing: -0.04em; }
-        .hero h1 span { color: var(--accent); }
-
-        /* 3. PARTNERS */
-        .partners { padding: 40px 5%; display: flex; justify-content: space-between; opacity: 0.3; font-weight: 700; }
-
-        /* 4. SERVICES */
-        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #eee; border: 1px solid #eee; margin-top: 60px; }
-        .service-box { background: #fff; padding: 60px 40px; transition: 0.3s; }
-        .service-box:hover { background: var(--text); color: #fff; }
-
-        /* 5. WORK */
-        .work-item { padding: 80px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        .work-item h2 { font-size: 5vw; transition: 0.3s; }
-        .work-item:hover h2 { transform: translateX(30px); color: var(--accent); }
-
-        /* 6. LABS */
-        .labs { background: var(--gray); }
-        .labs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        .lab-cell { aspect-ratio: 1; background: #fff; border: 1px solid #ddd; }
-
-        /* 7. METHOD */
-        .method { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; }
-        .step { margin-bottom: 60px; }
-        .step-num { color: var(--accent); font-weight: 700; }
-
-        /* 8. TALENT */
-        .talent { text-align: center; }
-        .talent-img { width: 100px; height: 100px; background: #eee; border-radius: 50%; margin: 0 auto 20px; }
-
-        /* 9. STATS */
-        .stats { display: flex; justify-content: space-around; background: var(--text); color: #fff; padding: 80px 5%; }
-        .stat-val { font-size: 5rem; }
-
-        /* 10. INQUIRY */
-        .contact-h { font-size: 8vw; }
-        .contact-h:hover { color: var(--accent); }
-
-        /* 11. NEWS */
-        .news-row { display: grid; grid-template-columns: 1fr 3fr; padding: 30px 0; border-top: 1px solid #eee; }
-
-        /* 12. FOOTER */
-        footer { padding: 60px 5%; display: flex; justify-content: space-between; font-size: 0.8rem; }
-
-        @media (max-width: 900px) {
-            .services-grid, .labs-grid, .method, .stats { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 20vw; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nexus Creative Case Study | Rayad Naif Portfolio</title>
+  <meta name="description" content="Agency portfolio direction focused on strategy, execution, and measurable product outcomes.">
+  <link rel="canonical" href="https://portfolio.ironix.dev/nexus.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Nexus Creative Case Study">
+  <meta property="og:description" content="Agency portfolio direction focused on strategy, execution, and measurable product outcomes.">
+  <meta property="og:url" content="https://portfolio.ironix.dev/nexus.html">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1600&q=80">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Nexus Creative Case Study">
+  <meta name="twitter:description" content="Agency portfolio direction focused on strategy, execution, and measurable product outcomes.">
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1600&q=80">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <nav>
-        <div class="logo">NEXUS.</div>
-        <div style="font-weight: 700;">HIRE US</div>
-    </nav>
-
-    <section class="hero">
-        <div class="reveal">
-            <h1>CRAFTING <span>BOLD</span> BRANDS.</h1>
-            <p style="margin-top: 30px; font-size: 1.5rem; max-width: 600px;">Independent agency merging creative strategy with technical engineering.</p>
-        </div>
-    </section>
-
-    <div class="partners">
-        <span>Google</span><span>Nike</span><span>Spotify</span><span>Apple</span><span>Meta</span>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">Rayad Naif · Portfolio</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-nav-toggle>Menu</button>
+      <nav aria-label="Project navigation" id="primary-nav" class="nav-links" data-nav>
+        <a href="index.html">Home</a>
+        <a href="#overview">Overview</a>
+        <a href="#process">Process</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact" class="nav-cta">Contact</a>
+      </nav>
     </div>
+  </header>
 
-    <section>
-        <h2>Capabilities</h2>
-        <div class="services-grid">
-            <div class="service-box reveal">
-                <h3>Strategy</h3>
-                <p style="margin-top:20px; opacity:0.6;">Market analysis and brand positioning for scale-ups.</p>
-            </div>
-            <div class="service-box reveal" style="transition-delay: 0.1s">
-                <h3>Design</h3>
-                <p style="margin-top:20px; opacity:0.6;">Visual identities and interactive digital products.</p>
-            </div>
-            <div class="service-box reveal" style="transition-delay: 0.2s">
-                <h3>Tech</h3>
-                <p style="margin-top:20px; opacity:0.6;">Custom development and cloud infrastructure.</p>
-            </div>
-        </div>
+  <main id="main-content">
+    <section class="case-hero">
+      <div class="container case-hero-grid">
+        <article class="hero-card" data-reveal>
+          <p class="eyebrow">Digital Agency · 2026</p>
+          <h1 class="hero-title" style="font-size:clamp(1.9rem,4.4vw,3.3rem);">Nexus Creative</h1>
+          <p class="hero-copy">Agency portfolio direction focused on strategy, execution, and measurable product outcomes.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#contact">Start a similar project</a>
+            <a class="button ghost" href="aether.html">Next case study</a>
+          </div>
+        </article>
+        <aside class="case-cover" data-reveal>
+          <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1600&q=80" width="1600" height="1200" alt="Hero visual for Nexus Creative case study">
+        </aside>
+      </div>
     </section>
 
-    <section id="work">
-        <div class="work-item reveal">
-            <h2>NeuroLink App</h2>
-            <span>UI/UX Design</span>
-        </div>
-        <div class="work-item reveal">
-            <h2>Kinetik Identity</h2>
-            <span>Branding</span>
-        </div>
-        <div class="work-item reveal">
-            <h2>Oasis Web</h2>
-            <span>Development</span>
-        </div>
+    <section class="section" id="overview">
+      <div class="container grid-2">
+        <article class="panel" data-reveal>
+          <p class="eyebrow">Project brief</p>
+          <ul class="meta-list">
+            <li><strong>Client:</strong> Creative engineering agency concept</li>
+            <li><strong>Role:</strong> Messaging architecture + visual design</li>
+            <li><strong>Year:</strong> 2026</li>
+            <li><strong>Focus:</strong> Premium UI, accessibility, and conversion clarity</li>
+          </ul>
+        </article>
+        <article class="panel" data-reveal>
+          <p class="eyebrow">Impact summary</p>
+          <div class="kpi-grid">
+            <div class="kpi"><strong>Challenge</strong><p>The previous single-page concept lacked depth for services and collaboration process.</p></div>
+            <div class="kpi"><strong>Solution</strong><p>I expanded the IA with capabilities, workflow detail, selected outcomes, and clear contact paths.</p></div>
+            <div class="kpi"><strong>Stack</strong><div class="tags"><span>Static HTML</span><span>Utility-style CSS patterns</span><span>Lightweight JS</span></div></div>
+          </div>
+        </article>
+      </div>
     </section>
 
-    <section class="method">
-        <div class="reveal">
-            <h2>Our Way</h2>
-        </div>
-        <div class="reveal">
-            <div class="step">
-                <span class="step-num">01 / Discover</span>
-                <p>We audit your current ecosystem and identify growth friction.</p>
-            </div>
-            <div class="step">
-                <span class="step-num">02 / Prototype</span>
-                <p>Rapid iteration cycles to validate high-impact ideas.</p>
-            </div>
-            <div class="step">
-                <span class="step-num">03 / Build</span>
-                <p>Clean code and pixel-perfect design combined for launch.</p>
-            </div>
-        </div>
+    <section class="section" id="process">
+      <div class="container grid-2">
+        <article class="panel" data-reveal>
+          <p class="eyebrow">Process</p>
+          <h2>What changed</h2>
+          <ul>
+            <li>Stronger lead-gen pathway from hero to contact</li><li>Consistent CTA language across sections</li><li>Better mobile navigation behavior</li>
+          </ul>
+        </article>
+        <article class="panel" data-reveal>
+          <p class="eyebrow">Navigation continuity</p>
+          <p>Every action now points to a valid route. Related studies are linked bidirectionally for smoother browsing.</p>
+          <div class="hero-actions">
+            <a class="button ghost" href="arkitekt.html">Previous study</a>
+            <a class="button ghost" href="aether.html">Next study</a>
+          </div>
+        </article>
+      </div>
     </section>
 
-    <section class="stats">
-        <div class="reveal">
-            <div class="stat-val">142</div>
-            <p>Products Launched</p>
+    <section class="section" id="gallery" aria-labelledby="gallery-heading">
+      <div class="container">
+        <p class="eyebrow">Visual direction</p>
+        <h2 id="gallery-heading">Supporting imagery</h2>
+        <div class="media-grid">
+          <figure data-reveal>
+            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80" width="1200" height="900" loading="eager" alt="Strategy workshop setting for Nexus Creative">
+            <figcaption>Strategy workshop setting</figcaption>
+          </figure>
+          <figure data-reveal>
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80" width="1200" height="900" loading="lazy" alt="Cross-functional team collaboration for Nexus Creative">
+            <figcaption>Cross-functional team collaboration</figcaption>
+          </figure>
+          <figure data-reveal>
+            <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80" width="1200" height="900" loading="lazy" alt="Product review discussion for Nexus Creative">
+            <figcaption>Product review discussion</figcaption>
+          </figure>
         </div>
-        <div class="reveal" style="transition-delay: 0.2s">
-            <div class="stat-val">12</div>
-            <p>Cannes Lions</p>
-        </div>
-        <div class="reveal" style="transition-delay: 0.4s">
-            <div class="stat-val">09</div>
-            <p>Years Active</p>
-        </div>
+      </div>
     </section>
 
-    <section class="labs">
-        <h2 style="margin-bottom: 40px;">Nexus Labs</h2>
-        <div class="labs-grid">
-            <div class="lab-cell reveal"></div>
-            <div class="lab-cell reveal" style="transition-delay: 0.1s"></div>
-            <div class="lab-cell reveal" style="transition-delay: 0.2s"></div>
-            <div class="lab-cell reveal" style="transition-delay: 0.3s"></div>
-        </div>
+    <section class="section" id="contact">
+      <div class="container grid-2">
+        <article class="panel" data-reveal>
+          <p class="eyebrow">Collaboration</p>
+          <h2>Interested in this direction?</h2>
+          <p>Email directly or open a pre-filled draft using the form.</p>
+          <p><a class="button ghost" href="mailto:hello@portfolio.ironix.dev?subject=Nexus%20Creative%20Project%20Inquiry">Email for this project</a></p>
+        </article>
+        <article class="panel" data-reveal>
+          <form class="contact-box" action="mailto:hello@portfolio.ironix.dev" method="post" enctype="text/plain">
+            <label>Name<input type="text" name="name" required autocomplete="name"></label>
+            <label>Email<input type="email" name="email" required autocomplete="email"></label>
+            <label>Message<textarea name="message" required>Hi, I'd like to discuss a project inspired by Nexus Creative.</textarea></label>
+            <button class="button primary" type="submit">Open email draft</button>
+            <small style="color:var(--muted);">No backend form handler is configured.</small>
+          </form>
+        </article>
+      </div>
     </section>
+  </main>
 
-    <section class="talent">
-        <div class="reveal">
-            <div class="talent-img"></div>
-            <h3>Looking for Talent</h3>
-            <p>We are always hiring creative engineers. Join the collective.</p>
-            <a href="#" style="border-bottom: 1px solid #000;">View Careers</a>
-        </div>
-    </section>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span data-current-year></span> Rayad Naif Portfolio</p>
+      <p><a href="index.html">Back to home</a></p>
+    </div>
+  </footer>
 
-    <section>
-        <a href="mailto:hello@nexus.agency" class="contact-h reveal">LET'S TALK.</a>
-    </section>
-
-    <footer>
-        <div>© 2024 NEXUS AGENCY</div>
-        <div>LONDON / NEW YORK</div>
-    </footer>
-
-    <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    </script>
+  <script src="assets/js/main.js" defer></script>
 </body>
 </html>
